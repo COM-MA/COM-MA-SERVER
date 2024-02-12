@@ -28,43 +28,18 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    # Configure Gradle for optimal use in GiHub Actions, including caching of downloaded dependencies.
-    # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
-    #- name: application.yaml 생성
-    # run: | 
-    #      cd src/main/resources
-    #      echo "${{ secrets.APPLICATION }}" > ./application.yml
-    
     - name: Build with Gradle Wrapper
       run: ./gradlew build -x test
 
-    # NOTE: The Gradle Wrapper is the default and recommended way to run Gradle (https://docs.gradle.org/current/userguide/gradle_wrapper.html).
-    # If your project does not have the Gradle Wrapper configured, you can use the following configuration to run Gradle with a specified version.
-    #
-    # - name: Setup Gradle
-    #   uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
-    #   with:
-    #     gradle-version: '8.5'
-    #
-    # - name: Build with Gradle 8.5
-    #   run: gradle build
-    
-    # Docker 이미지 Build 
     - name: docker image build
       run: docker build -t hysong4u/comma .
 
     - name: Docker Hub Login
-      uses: docker/login-action@v2
-      with:
-       username: ${{ secrets.DOCKERHUB_USERNAME }}
-       password: ${{ secrets.DOCKERHUB_TOKEN }}
-       registry: https://index.docker.io/v1/
+      run : docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
-    
-    # Docker Hub push 
     - name: docker Hub push
       run: docker push hysong4u/comma 
 
