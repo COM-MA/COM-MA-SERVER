@@ -49,7 +49,7 @@ jobs:
     
     # Docker 이미지 Build (2)
     - name: docker image build
-      run: docker build -t hysong4u/comma
+      run: docker build -t hysong4u/comma .
     
     # DockerHub Login (3)
     - name: docker login 
