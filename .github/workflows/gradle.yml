@@ -60,7 +60,7 @@ jobs:
 
     # Docker Hub push (4)
     - name: docker Hub push
-      run: docker push hysong4u/comma
+      run: docker push hysong4u/comma .
 
 
   dependency-submission:
