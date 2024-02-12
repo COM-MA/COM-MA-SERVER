@@ -38,7 +38,7 @@ jobs:
       run: docker build -t hysong4u/comma .
 
     - name: Docker Hub Login
-      run : docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PW }}
+      run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login --username "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
     - name: docker Hub push
       run: docker push hysong4u/comma 
