@@ -33,6 +33,11 @@ jobs:
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
+    - name: application.yaml 생성
+      run: | 
+          cd src/main/resources
+          echo "${{ secrets.APPLICATION }}" > ./application-deploy.yaml
+    
     - name: Build with Gradle Wrapper
       run: ./gradlew build -x test
 
@@ -54,7 +59,9 @@ jobs:
     # Docker Hub push 
     - name: docker Hub push
       run: docker push hysong4u/comma 
-
+      env:
+       DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+       DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
 
   dependency-submission:
 
