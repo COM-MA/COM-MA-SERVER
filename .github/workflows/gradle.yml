@@ -34,17 +34,17 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build -x test
 
-    - name: docker image build
-      run: docker build -t hysong4u/comma .
+   # - name: docker image build
+   # run: docker build -t hysong4u/comma .
 
-    - name: Docker Hub 로그인
-      env:
-        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-        DOCKERHUB_PW: ${{ secrets.DOCKERHUB_PW }}
-      run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PW
+   # - name: Docker Hub 로그인
+   #   env:
+   #     DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+   #     DOCKERHUB_PW: ${{ secrets.DOCKERHUB_PW }}
+   #   run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PW
 
-    - name: docker Hub push
-      run: docker push hysong4u/comma 
+   # - name: docker Hub push
+   #   run: docker push hysong4u/comma 
 
   dependency-submission:
 
