@@ -1,11 +1,14 @@
-package com.example.comma.domain.user;
+package com.example.comma.domain.user.entity;
 
+import com.example.comma.domain.card.entity.UserCard;
+import com.example.comma.domain.fairytale.entity.UserFairytale;
 import com.example.comma.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @Getter
@@ -13,24 +16,20 @@ import lombok.NoArgsConstructor;
 @Table(name = "user")
 @Entity
 public class User extends BaseTimeEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
 
+    private String nickname;
+
     @Column(nullable = false)
     private Long socialId;
 
-    private String profileImg;
+    @OneToMany(mappedBy = "user")
+    private List<UserFairytale> userFairytaleList;
 
-    private String nickName;
-
-    @Builder
-    public User(Long socialId, String nickName, String profileImg) {
-        this.socialId = socialId;
-        this.nickName = nickName;
-        this.profileImg = profileImg;
-    }
+    @OneToMany(mappedBy = "user")
+    private List<UserCard> userCardList;
 }
 
