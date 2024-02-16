@@ -1,8 +1,8 @@
 package com.example.comma.domain.user.controller;
 
-import com.example.comma.domain.user.dto.response.UserTokenResponseDto;
 import com.example.comma.domain.user.service.UserService;
 import com.example.comma.global.common.SuccessResponse;
+import com.example.comma.domain.user.dto.response.UserTokenResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
