@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "user_card")
@@ -27,4 +29,21 @@ public class UserCard {
     private Boolean quizParticipation;
 
     private Boolean cardRegistration;
+
+    public UserCard(User user, Card card, Boolean quizParticipation, Boolean cardRegistration) {
+        this.user = user;
+        this.card = card;
+        this.quizParticipation = quizParticipation;
+        this.cardRegistration = cardRegistration;
+    }
+
+    public void setQuizParticipation(Boolean quizParticipation) {
+        this.quizParticipation = quizParticipation;
+    }
+
+public void setCardRegistration(Boolean cardRegistration) {
+        this.cardRegistration = cardRegistration;
+    }
+
+
 }
