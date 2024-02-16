@@ -12,6 +12,7 @@ public enum ErrorCode {
      * 400 Bad Request
      */
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "하나 이상의 단어를 등록해주세요"),
     /**
      * 401 Unauthorized
      */

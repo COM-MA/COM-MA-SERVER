@@ -10,9 +10,10 @@ import java.util.Optional;
 public interface UserCardRepository extends JpaRepository<UserCard, Long> {
     List<UserCard> findUserCardByUserIdOrderByCreateDateDesc(Long userId);
 
-    List<UserCard> findUserCardByUserIdAndCardNameContainingOrderByCreateDateDesc(Long userId, String alphabet);
 
     List<UserCard> findUserCardByUserIdOrderByCardNameAsc(Long userId);
 
-    Optional<Object> findUserCardByUserIdAndCardId(Long userId, Long cardId);
+    Optional<UserCard> findUserCardByUserIdAndCardId(Long userId, Long cardId);
+
+    List<UserCard> findUserCardByUserIdAndCardIdNot(Long id, Long id1);
 }

@@ -2,6 +2,8 @@ package com.example.comma.domain.card.service;
 
 import com.example.comma.domain.card.dto.response.CardImageResponseDto;
 import com.example.comma.domain.card.dto.response.CardResponseDto;
+import com.example.comma.domain.card.dto.response.CorrectCardResponseDto;
+import com.example.comma.domain.card.dto.response.WrongCardResponseDto;
 import com.example.comma.domain.card.entity.Card;
 import com.example.comma.domain.card.entity.UserCard;
 import com.example.comma.domain.card.repository.CardRepository;
@@ -10,12 +12,14 @@ import com.example.comma.domain.user.entity.User;
 import com.example.comma.domain.user.repository.UserRepository;
 import com.example.comma.global.error.ErrorCode;
 import com.example.comma.global.error.exception.EntityNotFoundException;
+import com.example.comma.global.error.exception.InvalidValueException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 
@@ -78,20 +82,45 @@ public class CardService {
     }
 
 
-    public void deleteCard(Long userId, Long UserCardId) {
+    public void deleteCard(Long userId, Long userCardId) {
 
-        UserCard userCard = (UserCard) userCardRepository.findUserCardByUserIdAndCardId(userId, UserCardId)
+        UserCard userCard = (UserCard) userCardRepository.findUserCardByUserIdAndCardId(userId, userCardId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
 
         userCardRepository.delete(userCard);
     }
 
-    public CardResponseDto getCardDetail(Long UserCardId) {
+    public CardResponseDto getCardDetail(Long userCardId) {
 
-        UserCard userCard = userCardRepository.findById(UserCardId)
+        UserCard userCard = userCardRepository.findById(userCardId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
 
         Card card = userCard.getCard();
         return new CardResponseDto(card.getId(), card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
+    }
+
+    public WrongCardResponseDto getRandomQuizCard(Long userCardId) {
+        UserCard userCard = userCardRepository.findById(userCardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
+
+        List<UserCard> remainUserCards = userCardRepository.findUserCardByUserIdAndCardIdNot(userCard.getUser().getId(), userCardId);
+
+        if (remainUserCards.size() <= 1) {
+            throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
+        }
+
+        int randomIndex = new Random().nextInt(remainUserCards.size());
+        UserCard randomUserCard = remainUserCards.get(randomIndex);
+        Card randomCard = randomUserCard.getCard();
+
+        return new WrongCardResponseDto(randomCard.getName(), randomCard.getCardImageUrl(), randomCard.getSignImageUrl());
+    }
+
+    public CorrectCardResponseDto getQuizCard(Long userCardId) {
+        UserCard userCard = userCardRepository.findById(userCardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
+
+        Card card = userCard.getCard();
+        return new CorrectCardResponseDto(card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
     }
 }
