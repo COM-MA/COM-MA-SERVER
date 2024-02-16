@@ -63,6 +63,11 @@ public class CardService {
         return convertToCardResponseDtos(userCards);
     }
 
+    public List<CardResponseDto> getAlphabetCard(Long userId) {
+        List<UserCard> userCards = userCardRepository.findUserCardByUserIdOrderByCardNameAsc(userId);
+        return convertToCardResponseDtos(userCards);
+    }
+
     private List<CardResponseDto> convertToCardResponseDtos(List<UserCard> userCards) {
         return userCards.stream()
                 .map(userCard -> {
@@ -72,4 +77,17 @@ public class CardService {
                 .collect(Collectors.toList());
     }
 
+
+    public void deleteCard(Long userId, Long cardId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
+
+        Card card = cardRepository.findById(cardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CARD_NOT_FOUND));
+
+        UserCard userCard = (UserCard) userCardRepository.findUserCardByUserIdAndCardId(userId, cardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
+
+        userCardRepository.delete(userCard);
+    }
 }
