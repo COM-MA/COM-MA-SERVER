@@ -12,6 +12,7 @@ public enum ErrorCode {
      * 400 Bad Request
      */
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "잘못된 요청입니다."),
+    INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "하나 이상의 단어를 등록해주세요"),
     /**
      * 401 Unauthorized
      */
@@ -32,7 +33,9 @@ public enum ErrorCode {
      * 404 Not Found
      */
     ENTITY_NOT_FOUND(HttpStatus.NOT_FOUND, "엔티티를 찾을 수 없습니다."),
-
+    CARD_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 카드를 찾을 수 없습니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 유저를 찾을 수 없습니다."),
+    USER_CARD_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 유저가 등록한 카드를 찾을 수 없습니다."),
     /**
      * 405 Method Not Allowed
      */

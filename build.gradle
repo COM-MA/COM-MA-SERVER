@@ -56,6 +56,8 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
+compileJava {	options.compilerArgs << '-parameters'}
+
 jar {
     enabled = false
 }

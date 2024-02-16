@@ -22,9 +22,10 @@ public class Card {
 
     private String CardImageUrl;
 
-    private String StringImageUrl;
+    private String SignImageUrl;
 
 
     @OneToMany(mappedBy = "card")
     private List<UserCard> userCardList;
+
 }
