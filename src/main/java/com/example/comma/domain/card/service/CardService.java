@@ -78,16 +78,20 @@ public class CardService {
     }
 
 
-    public void deleteCard(Long userId, Long cardId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
+    public void deleteCard(Long userId, Long UserCardId) {
 
-        Card card = cardRepository.findById(cardId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CARD_NOT_FOUND));
-
-        UserCard userCard = (UserCard) userCardRepository.findUserCardByUserIdAndCardId(userId, cardId)
+        UserCard userCard = (UserCard) userCardRepository.findUserCardByUserIdAndCardId(userId, UserCardId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
 
         userCardRepository.delete(userCard);
+    }
+
+    public CardResponseDto getCardDetail(Long UserCardId) {
+
+        UserCard userCard = userCardRepository.findById(UserCardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
+
+        Card card = userCard.getCard();
+        return new CardResponseDto(card.getId(), card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
     }
 }

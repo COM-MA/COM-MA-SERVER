@@ -35,17 +35,22 @@ public class CardController {
         return SuccessResponse.ok(CardImage);
     }
 
-    @GetMapping("/alpabet")
+    @GetMapping("/alphabet")
     public ResponseEntity<SuccessResponse<?>> getAlphabetCard(@UserId Long userId) {
         List<CardResponseDto> CardImage = cardService.getAlphabetCard(userId);
         return SuccessResponse.ok(CardImage);
     }
 
-    @DeleteMapping("/{cardId}")
-    public ResponseEntity<SuccessResponse<?>> deleteCard(@UserId Long userId, @PathVariable(name = "cardId") Long cardId) {
-        cardService.deleteCard(userId, cardId);
+    @DeleteMapping("/{userCardId}")
+    public ResponseEntity<SuccessResponse<?>> deleteCard(@UserId Long userId, @PathVariable(name = "userCardId") Long userCardId) {
+        cardService.deleteCard(userId, userCardId);
         return SuccessResponse.ok(null);
     }
 
+    @GetMapping("/detail/{userCardId}")
+    public ResponseEntity<SuccessResponse<?>> getCardDetail(@PathVariable(name = "userCardId") Long userCardId) {
+        CardResponseDto CardImage = cardService.getCardDetail(userCardId);
+        return SuccessResponse.ok(CardImage);
+    }
 
 }
