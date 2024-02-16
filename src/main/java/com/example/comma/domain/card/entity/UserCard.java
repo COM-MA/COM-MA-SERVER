@@ -1,18 +1,17 @@
 package com.example.comma.domain.card.entity;
 
 import com.example.comma.domain.user.entity.User;
+import com.example.comma.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "user_card")
 @Entity
-public class UserCard {
+public class UserCard extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_card_id")
@@ -41,9 +40,7 @@ public class UserCard {
         this.quizParticipation = quizParticipation;
     }
 
-public void setCardRegistration(Boolean cardRegistration) {
+    public void setCardRegistration(Boolean cardRegistration) {
         this.cardRegistration = cardRegistration;
     }
-
-
 }
