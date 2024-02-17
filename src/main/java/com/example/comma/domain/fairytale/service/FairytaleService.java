@@ -41,37 +41,37 @@ public class FairytaleService {
     private final UserRepository userRepository;
 
 
-    public String searchVideo(String title, String channelName) throws IOException {
-        JsonFactory jsonFactory = new JacksonFactory();
+    public String searchVideo(Fairytale fairytale, String title, String channelName) {
+        try {
+            JsonFactory jsonFactory = new JacksonFactory();
 
-        YouTube youtube = new YouTube.Builder(
-                new com.google.api.client.http.javanet.NetHttpTransport(),
-                jsonFactory,
-                request -> {})
-                .build();
+            YouTube youtube = new YouTube.Builder(
+                    new com.google.api.client.http.javanet.NetHttpTransport(),
+                    jsonFactory,
+                    request -> {})
+                    .build();
 
-        String query = title + " " + channelName;
+            String query = title + " " + channelName;
 
-        YouTube.Search.List search = youtube.search().list(Collections.singletonList("id,snippet"));
+            YouTube.Search.List search = youtube.search().list(Collections.singletonList("id,snippet"));
 
-        search.setKey(apiKey);
-        search.setQ(query);
+            search.setKey(apiKey);
+            search.setQ(query);
 
-        SearchListResponse searchResponse = search.execute();
+            SearchListResponse searchResponse = search.execute();
 
-        List<SearchResult> searchResultList = searchResponse.getItems();
+            List<SearchResult> searchResultList = searchResponse.getItems();
 
-        if (searchResultList != null && searchResultList.size() > 0) {
-
-            SearchResult searchResult = searchResultList.get(0);
-
-            String videoId = searchResult.getId().getVideoId();
-            String videoTitle = searchResult.getSnippet().getTitle();
-
-            return "https://www.youtube.com/watch?v=" + videoId;
+            if (searchResultList != null && searchResultList.size() > 0) {
+                SearchResult searchResult = searchResultList.get(0);
+                String videoId = searchResult.getId().getVideoId();
+                return "https://www.youtube.com/watch?v=" + videoId;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        return "검색 결과가 없습니다";
+        return null;
     }
 
     public List<FairytaleResponseDto> getFairytale() {
@@ -80,8 +80,12 @@ public class FairytaleService {
         return fairytaleList.stream()
                 .map(fairytale -> {
                     try {
-                        String videolink = searchVideo(fairytale.getTitle(), fairytale.getChannelName());
-
+                        String videolink;
+                        if (fairytale.getId() == 1 || fairytale.getId() == 4) {
+                            videolink = fairytale.getLink();
+                        } else {
+                            videolink = searchVideo(fairytale, fairytale.getTitle(), fairytale.getChannelName());
+                        }
 
                         return new FairytaleResponseDto(
                                 fairytale.getId(),
@@ -90,18 +94,18 @@ public class FairytaleService {
                                 fairytale.getChannelName(),
                                 fairytale.getYear().toString(),
                                 fairytale.getTime().toString(),
-                                (videolink != null) ? videolink : fairytale.getLink(),
+                                videolink,
                                 fairytale.getSubtitleTag(),
                                 fairytale.getSignTag()
                         );
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    } catch (Exception e) {
                         return null;
                     }
                 })
                 .filter(dto -> dto != null)
                 .collect(Collectors.toList());
     }
+
 
     @Transactional
     public FairytaleDetailResponseDto getFairytaleDetail(Long userId, Long fairytaleId) {
