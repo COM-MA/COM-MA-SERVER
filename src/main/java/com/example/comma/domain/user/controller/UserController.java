@@ -3,6 +3,7 @@ package com.example.comma.domain.user.controller;
 import com.example.comma.domain.user.service.UserService;
 import com.example.comma.global.common.SuccessResponse;
 import com.example.comma.domain.user.dto.response.UserTokenResponseDto;
+import com.example.comma.global.config.auth.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,4 +21,13 @@ public class UserController {
         final UserTokenResponseDto userTokenResponseDto = userService.getToken(userId);
         return SuccessResponse.created(userTokenResponseDto);
     }
+
+    @PostMapping("/{nickname}")
+    public ResponseEntity<SuccessResponse<?>> registerNickname(@UserId Long userId, @PathVariable(name = "nickname") String nickname) {
+        userService.registerNickname(userId, nickname);
+        return SuccessResponse.created(null);
+    }
+
+
+
 }

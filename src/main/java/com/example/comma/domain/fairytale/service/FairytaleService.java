@@ -65,7 +65,7 @@ public class FairytaleService {
             if (searchResultList != null && searchResultList.size() > 0) {
                 SearchResult searchResult = searchResultList.get(0);
                 String videoId = searchResult.getId().getVideoId();
-                return "https://www.youtube.com/watch?v=" + videoId;
+                return videoId;
             }
         } catch (IOException e) {
             e.printStackTrace();

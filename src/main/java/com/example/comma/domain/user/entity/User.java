@@ -31,5 +31,9 @@ public class User extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "user")
     private List<UserCard> userCardList;
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }
 
