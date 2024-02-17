@@ -4,6 +4,7 @@ import com.example.comma.domain.fairytale.dto.FairytaleDetailResponseDto;
 import com.example.comma.domain.fairytale.dto.FairytaleResponseDto;
 import com.example.comma.domain.fairytale.entity.Fairytale;
 import com.example.comma.domain.fairytale.repository.FairytaleRepository;
+import com.example.comma.global.error.exception.EntityNotFoundException;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.youtube.YouTube;
@@ -18,6 +19,8 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.example.comma.global.error.ErrorCode.FAIRYTALE_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Service
@@ -93,7 +96,9 @@ public class FairytaleService {
     }
 
     public FairytaleDetailResponseDto getFairytaleDetail(Long fairytaleId) {
-        Fairytale fairytale = fairytaleRepository.findById(fairytaleId).orElseThrow();
+        Fairytale fairytale = fairytaleRepository.findById(fairytaleId)
+                .orElseThrow(() -> new EntityNotFoundException(FAIRYTALE_NOT_FOUND)
+        );
 
         String description = fairytale.getDescription();
 
@@ -101,7 +106,7 @@ public class FairytaleService {
         Collections.shuffle(randomFairytaleList);
         Fairytale recommendFairytale = randomFairytaleList.get(0);
 
-        return new FairytaleDetailResponseDto(description, recommendFairytale.getImgaeUrl());
+        return new FairytaleDetailResponseDto(description, recommendFairytale.getRecommendImageUrl());
     }
 
 }
