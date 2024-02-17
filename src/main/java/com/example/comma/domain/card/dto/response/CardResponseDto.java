@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record CardResponseDto(
-        Long id,
+        Long userCardId,
         String name,
         String cardImageUrl,
         String signImageUrl

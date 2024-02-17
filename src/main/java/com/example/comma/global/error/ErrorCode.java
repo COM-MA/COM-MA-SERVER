@@ -45,6 +45,7 @@ public enum ErrorCode {
      * 409 Conflict
      */
     CONFLICT(HttpStatus.CONFLICT, "이미 존재하는 리소스입니다."),
+    USER_CARD_ALREADY_EXISTS(HttpStatus.CONFLICT, "이미 등록된 단어카드입니다."),
 
     /**
      * 500 Internal Server Error

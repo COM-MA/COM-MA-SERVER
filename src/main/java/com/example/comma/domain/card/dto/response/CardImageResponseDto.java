@@ -3,7 +3,7 @@ package com.example.comma.domain.card.dto.response;
 import lombok.Builder;
 
 public record CardImageResponseDto(
-        Long id,
+        Long CardId,
         String CardImageUrl,
         String SignImageUrl
 ) {

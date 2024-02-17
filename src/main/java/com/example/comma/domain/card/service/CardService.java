@@ -13,6 +13,7 @@ import com.example.comma.domain.user.repository.UserRepository;
 import com.example.comma.global.error.ErrorCode;
 import com.example.comma.global.error.exception.EntityNotFoundException;
 import com.example.comma.global.error.exception.InvalidValueException;
+import com.example.comma.global.error.exception.ConflictException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,10 @@ public class CardService {
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CARD_NOT_FOUND));
 
+        if (userCardRepository.existsByUserAndCard(user, card)) {
+            throw new ConflictException(ErrorCode.USER_CARD_ALREADY_EXISTS);
+        }
+
         UserCard userCard = new UserCard(user, card, false, true);
 
         userCardRepository.save(userCard);
@@ -76,7 +81,7 @@ public class CardService {
         return userCards.stream()
                 .map(userCard -> {
                     Card card = userCard.getCard();
-                    return new CardResponseDto(card.getId(), card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
+                    return new CardResponseDto(userCard.getId(), card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
                 })
                 .collect(Collectors.toList());
     }
