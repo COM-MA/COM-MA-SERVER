@@ -4,12 +4,10 @@ import com.example.comma.domain.fairytale.dto.FairytaleDetailResponseDto;
 import com.example.comma.domain.fairytale.dto.FairytaleResponseDto;
 import com.example.comma.domain.fairytale.service.FairytaleService;
 import com.example.comma.global.common.SuccessResponse;
+import com.example.comma.global.config.auth.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,9 +23,9 @@ public class FairytaleController {
         return SuccessResponse.ok(fairytale);
     }
 
-    @GetMapping("/detail/{fairytaleId}")
-    public ResponseEntity<SuccessResponse<?>> getFairytaleDetail(@PathVariable(name = "fairytaleId") Long fairytaleId) {
-        FairytaleDetailResponseDto fairytale = fairytaleService.getFairytaleDetail(fairytaleId);
+    @PostMapping("/detail/{fairytaleId}")
+    public ResponseEntity<SuccessResponse<?>> getFairytaleDetail(@UserId Long userId,@PathVariable(name = "fairytaleId") Long fairytaleId) {
+        FairytaleDetailResponseDto fairytale = fairytaleService.getFairytaleDetail(userId,fairytaleId);
         return SuccessResponse.ok(fairytale);
     }
 }
