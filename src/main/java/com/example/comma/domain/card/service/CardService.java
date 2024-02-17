@@ -59,13 +59,12 @@ public class CardService {
     }
 
     @Transactional
-    @Scheduled(cron = "10 * * * * *")
+    @Scheduled(cron = "0 0 0 * * ?")
     public void resetCardRegistration() {
         userCardRepository.findAll().forEach(userCard -> {
             userCard.setQuizParticipation(false);
             userCard.setCardRegistration(false);
             userCardRepository.save(userCard);
-            System.out.println("userCard = " + userCard);
         });
     }
 
