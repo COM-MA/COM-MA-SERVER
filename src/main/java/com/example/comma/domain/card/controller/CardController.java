@@ -53,11 +53,11 @@ public class CardController {
         return SuccessResponse.ok(CardImage);
     }
 
-    @GetMapping("/quiz/{userCardId}")
+    @PostMapping("/quiz/{userCardId}")
     public ResponseEntity<SuccessResponse<?>> getQuizCard(@UserId Long userId, @PathVariable(name = "userCardId") Long userCardId) {
         CorrectCardResponseDto correctCardImage = cardService.getQuizCard(userCardId);
         WrongCardResponseDto wrongCardImage = cardService.getRandomQuizCard(userCardId);
-
+        cardService.updateQuizParticipate(userCardId);
         QuizResponseDto quizResponse = new QuizResponseDto(correctCardImage, wrongCardImage);
         return SuccessResponse.ok(quizResponse);
     }

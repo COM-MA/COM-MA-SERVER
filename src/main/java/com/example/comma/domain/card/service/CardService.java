@@ -58,12 +58,14 @@ public class CardService {
         userCardRepository.save(userCard);
     }
 
-    @Scheduled(cron = "0 0 0 * * ?")
+    @Transactional
+    @Scheduled(cron = "10 * * * * *")
     public void resetCardRegistration() {
         userCardRepository.findAll().forEach(userCard -> {
             userCard.setQuizParticipation(false);
             userCard.setCardRegistration(false);
             userCardRepository.save(userCard);
+            System.out.println("userCard = " + userCard);
         });
     }
 
@@ -127,5 +129,13 @@ public class CardService {
 
         Card card = userCard.getCard();
         return new CorrectCardResponseDto(card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
+    }
+
+    @Transactional
+    public void updateQuizParticipate(Long userCardId) {
+        UserCard userCard = userCardRepository.findById(userCardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
+
+        userCard.setQuizParticipation(true);
     }
 }
