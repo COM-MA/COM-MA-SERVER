@@ -33,10 +33,7 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew clean build -x test
-      
-    - name : Comma 서버 실행
-      run: nohup java -jar comma-0.0.1-SNAPSHOT.jar &
-      
+  
 
    # - name: docker image build
    # run: docker build -t hysong4u/comma .
