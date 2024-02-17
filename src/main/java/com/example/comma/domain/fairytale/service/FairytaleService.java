@@ -3,7 +3,11 @@ package com.example.comma.domain.fairytale.service;
 import com.example.comma.domain.fairytale.dto.FairytaleDetailResponseDto;
 import com.example.comma.domain.fairytale.dto.FairytaleResponseDto;
 import com.example.comma.domain.fairytale.entity.Fairytale;
+import com.example.comma.domain.fairytale.entity.UserFairytale;
 import com.example.comma.domain.fairytale.repository.FairytaleRepository;
+import com.example.comma.domain.fairytale.repository.UserFairytaleRepository;
+import com.example.comma.domain.user.entity.User;
+import com.example.comma.domain.user.repository.UserRepository;
 import com.example.comma.global.error.exception.EntityNotFoundException;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -12,6 +16,7 @@ import com.google.api.services.youtube.model.SearchListResponse;
 import com.google.api.services.youtube.model.SearchResult;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.example.comma.global.error.ErrorCode.FAIRYTALE_NOT_FOUND;
+import static com.example.comma.global.error.ErrorCode.USER_NOT_FOUND;
 
 @RequiredArgsConstructor
 @Service
@@ -31,6 +37,8 @@ public class FairytaleService {
     private String apiKey;
 
     private final FairytaleRepository fairytaleRepository;
+    private final UserFairytaleRepository userFairytaleRepository;
+    private final UserRepository userRepository;
 
 
     public String searchVideo(String title, String channelName) throws IOException {
@@ -95,10 +103,26 @@ public class FairytaleService {
                 .collect(Collectors.toList());
     }
 
-    public FairytaleDetailResponseDto getFairytaleDetail(Long fairytaleId) {
+    @Transactional
+    public FairytaleDetailResponseDto getFairytaleDetail(Long userId, Long fairytaleId) {
         Fairytale fairytale = fairytaleRepository.findById(fairytaleId)
-                .orElseThrow(() -> new EntityNotFoundException(FAIRYTALE_NOT_FOUND)
-        );
+                .orElseThrow(() -> new EntityNotFoundException(FAIRYTALE_NOT_FOUND));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(USER_NOT_FOUND));
+
+        UserFairytale existingUserFairytale = userFairytaleRepository.findByUserAndFairytale(user, fairytale);
+
+        if (existingUserFairytale != null) {
+            existingUserFairytale.setFairytalePlay(true);
+            userFairytaleRepository.save(existingUserFairytale);
+        } else {
+            UserFairytale newUserFairytale = new UserFairytale();
+            newUserFairytale.setUser(user);
+            newUserFairytale.setFairytale(fairytale);
+            newUserFairytale.setFairytalePlay(true);
+            userFairytaleRepository.save(newUserFairytale);
+        }
 
         String description = fairytale.getDescription();
 
@@ -107,6 +131,14 @@ public class FairytaleService {
         Fairytale recommendFairytale = randomFairytaleList.get(0);
 
         return new FairytaleDetailResponseDto(description, recommendFairytale.getRecommendImageUrl());
+    }
+
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void FairytalePlay() {
+        userFairytaleRepository.findAll().forEach(userFairytale -> {
+            userFairytale.setFairytalePlay(false);
+            userFairytaleRepository.save(userFairytale);
+        });
     }
 
 }
