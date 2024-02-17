@@ -1,5 +1,6 @@
 package com.example.comma.domain.fairytale.service;
 
+import com.example.comma.domain.fairytale.dto.FairytaleDetailResponseDto;
 import com.example.comma.domain.fairytale.dto.FairytaleResponseDto;
 import com.example.comma.domain.fairytale.entity.Fairytale;
 import com.example.comma.domain.fairytale.repository.FairytaleRepository;
@@ -75,12 +76,10 @@ public class FairytaleService {
                                 fairytale.getId(),
                                 fairytale.getTitle(),
                                 fairytale.getImgaeUrl(),
-                                fairytale.getRecommendImageUrl(),
                                 fairytale.getChannelName(),
                                 fairytale.getYear().toString(),
                                 fairytale.getTime().toString(),
                                 (videolink != null) ? videolink : fairytale.getLink(),
-                                fairytale.getDescription(),
                                 fairytale.getSubtitleTag(),
                                 fairytale.getSignTag()
                         );
@@ -91,6 +90,18 @@ public class FairytaleService {
                 })
                 .filter(dto -> dto != null)
                 .collect(Collectors.toList());
+    }
+
+    public FairytaleDetailResponseDto getFairytaleDetail(Long fairytaleId) {
+        Fairytale fairytale = fairytaleRepository.findById(fairytaleId).orElseThrow();
+
+        String description = fairytale.getDescription();
+
+        List<Fairytale> randomFairytaleList = fairytaleRepository.findByIdNot(fairytaleId);
+        Collections.shuffle(randomFairytaleList);
+        Fairytale recommendFairytale = randomFairytaleList.get(0);
+
+        return new FairytaleDetailResponseDto(description, recommendFairytale.getImgaeUrl());
     }
 
 }
