@@ -2,6 +2,7 @@ package com.example.comma.domain.fairytale.service;
 
 import com.example.comma.domain.fairytale.dto.FairytaleDetailResponseDto;
 import com.example.comma.domain.fairytale.dto.FairytaleResponseDto;
+import com.example.comma.domain.fairytale.dto.Top2FairytaleResponseDto;
 import com.example.comma.domain.fairytale.entity.Fairytale;
 import com.example.comma.domain.fairytale.entity.UserFairytale;
 import com.example.comma.domain.fairytale.repository.FairytaleRepository;
@@ -23,13 +24,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static com.example.comma.global.error.ErrorCode.FAIRYTALE_NOT_FOUND;
 import static com.example.comma.global.error.ErrorCode.USER_NOT_FOUND;
 
 @RequiredArgsConstructor
-@Service
+@Service현
 @Transactional
 public class FairytaleService {
 
@@ -107,6 +109,8 @@ public class FairytaleService {
     }
 
 
+
+
     @Transactional
     public FairytaleDetailResponseDto getFairytaleDetail(Long userId, Long fairytaleId) {
         Fairytale fairytale = fairytaleRepository.findById(fairytaleId)
@@ -143,6 +147,23 @@ public class FairytaleService {
             userFairytale.setFairytalePlay(false);
             userFairytaleRepository.save(userFairytale);
         });
+    }
+
+    public List<Top2FairytaleResponseDto> getTop2Fairytale() {
+        List<Fairytale> fairytaleList = fairytaleRepository.findAll();
+
+        Collections.shuffle(fairytaleList);
+
+        List<Fairytale> randomFairytaleList = fairytaleList.stream()
+                .limit(2)
+                .collect(Collectors.toList());
+
+        return randomFairytaleList.stream()
+                .map(fairytale -> new Top2FairytaleResponseDto(
+                        fairytale.getId(),
+                        fairytale.getRecommendImageUrl()
+                ))
+                .collect(Collectors.toList());
     }
 
 }
