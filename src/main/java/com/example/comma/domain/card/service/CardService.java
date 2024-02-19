@@ -137,4 +137,9 @@ public class CardService {
 
         userCard.setQuizParticipation(true);
     }
+
+    public List<CardResponseDto> getTop5Cards(Long userId) {
+        List<UserCard> userCards = userCardRepository.findTop5ByUserIdOrderByCreateDateDesc(userId);
+        return convertToCardResponseDtos(userCards);
+    }
 }

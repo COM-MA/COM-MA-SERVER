@@ -20,4 +20,8 @@ public interface UserCardRepository extends JpaRepository<UserCard, Long> {
     List<UserCard> findUserCardByUserIdAndCardIdNot(Long id, Long id1);
 
     boolean existsByUserAndCard(User user, Card card);
+
+    List<UserCard> findTop5ByUserIdOrderByCreateDateDesc(Long userId);
+
+    List<UserCard> findByUser(User user);
 }
