@@ -31,7 +31,7 @@ import static com.example.comma.global.error.ErrorCode.FAIRYTALE_NOT_FOUND;
 import static com.example.comma.global.error.ErrorCode.USER_NOT_FOUND;
 
 @RequiredArgsConstructor
-@Service현
+@Service
 @Transactional
 public class FairytaleService {
 
