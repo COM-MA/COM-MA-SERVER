@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Random;
 
 @RequiredArgsConstructor
 @Service
@@ -33,7 +34,7 @@ public class UserService {
         return new UserTokenResponseDto(accessToken, refreshToken);
     }
 
-    private String issueNewAccessToken(Long memberId) {
+    public String issueNewAccessToken(Long memberId) {
         return jwtProvider.getIssueToken(memberId, true);
     }
 
@@ -73,6 +74,29 @@ public class UserService {
                 isFairyTalePlayed
         );
     }
+
+    private static final String[] ADJECTIVES = {"행복한", "밝은", "용감한", "영리한", "친절한",
+            "신나는", "귀여운", "날렵한", "총명한", "명랑한",
+            "따뜻한", "자유로운", "열정적인", "창의적인", "성실한",
+            "유쾌한", "현명한", "도전적인", "낙천적인", "포근한"};
+
+    private static final String[] NOUNS = {"용", "별", "탐험가", "불사조", "여행",
+            "모험자", "해변", "드래곤", "비행기", "오후",
+            "해적", "마법사", "코끼리", "책", "음악",
+            "강", "손", "꽃", "천사", "바다"};
+    public static String generateNickname() {
+        String adjective = getRandomElement(ADJECTIVES);
+        String noun = getRandomElement(NOUNS);
+        return adjective +" "+ noun ;
+    }
+
+    private static String getRandomElement(String[] array) {
+        Random random = new Random();
+        int randomIndex = random.nextInt(array.length);
+        return array[randomIndex];
+    }
+
+
 
 
 }

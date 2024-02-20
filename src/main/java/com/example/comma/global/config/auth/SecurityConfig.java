@@ -26,6 +26,7 @@ public class SecurityConfig {
 
     private static final String[] whiteList = {"/",
             "api/user/token/**",
+            "login/oauth2/code/google/**",
             };
 
     @Bean
