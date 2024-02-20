@@ -5,6 +5,7 @@ import com.example.comma.domain.fairytale.entity.UserFairytale;
 import com.example.comma.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,14 +24,28 @@ public class User extends BaseTimeEntity {
 
     private String nickname;
 
+    private String name;
+
+    private String email;
+
+    private String profileImage;
+
     @Column(nullable = false)
-    private Long socialId;
+    private String socialId;
 
     @OneToMany(mappedBy = "user")
     private List<UserFairytale> userFairytaleList;
 
     @OneToMany(mappedBy = "user")
     private List<UserCard> userCardList;
+
+    @Builder
+    public User(String socialId, String name, String email, String profileImage) {
+        this.socialId = socialId;
+        this.name = name;
+        this.email = email;
+        this.profileImage = profileImage;
+    }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
