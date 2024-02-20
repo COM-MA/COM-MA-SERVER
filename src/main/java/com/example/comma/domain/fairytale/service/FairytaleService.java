@@ -161,7 +161,7 @@ public class FairytaleService {
         return randomFairytaleList.stream()
                 .map(fairytale -> new Top2FairytaleResponseDto(
                         fairytale.getId(),
-                        fairytale.getRecommendImageUrl()
+                        fairytale.getHomeRecommendImageUrl()
                 ))
                 .collect(Collectors.toList());
     }

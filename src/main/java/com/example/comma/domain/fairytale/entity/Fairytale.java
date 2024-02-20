@@ -25,6 +25,8 @@ public class Fairytale {
 
     private String recommendImageUrl;
 
+    private String homeRecommendImageUrl;
+
     private String channelName;
 
     private Year year;
