@@ -1,4 +1,3 @@
-
 <div align="center">
 
   <h1>AI Camera-Based Sign Language Platform for CODA <br> <i>COM-MA</i></h1>
