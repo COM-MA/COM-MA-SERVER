@@ -1,6 +1,6 @@
 <div align="center">
 
-  <h1> <i>' COM-MA '</i> <br>AI Camera-Based Sign Language Platform for CODA</h1><br>
+  <h1> <i>' COM-MA '</i> <br>AI Camera-Based Sign Language Education Platform for CODA</h1><br>
 
   <img src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/5cdd7168-3cee-4385-8944-c41d85ae18e4" alt="Slide 16_9 - 4">
 </div>
