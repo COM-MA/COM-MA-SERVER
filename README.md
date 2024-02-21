@@ -1,41 +1,41 @@
 
 <div align="center">
-  <h1>'Connect the Silent World and the World of Sounds'<br/>AI Camera-Based Sign Language Learning Service for Deaf Children - COM-MA</h1>
+
+  <h1>AI Camera-Based Sign Language Platform for children’s CODA <br> <i>COM-MA</i></h1>
+
   <img src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/5cdd7168-3cee-4385-8944-c41d85ae18e4" alt="Slide 16_9 - 4">
 </div>
 
-## 📍Table of Contents
-<hr>
 
-1. [💟 Backend Team Members](#-backend-team-members)
-2. [💟 Project Overview](#-project-overview)
-3. [💟 Key Features](#-key-features)
+## 📍Table of Contents
+
+-  [💟 Backend Team Members](#-backend-team-members)
+-  [💟 Project Overview](#-project-overview)
+-  [💟 Key Features](#-key-features)
     - [🔎 COM-MA Lens](#-com-ma-lens)
     - [🏷️ Word Cards](#-word-cards)
     - [💡 Quizzes](#-quizzes)
     - [📚 Storybooks](#-storybooks)
-4. [💟 How to Run](#-how-to-run)
-5. [💟 Tech Stack](#-tech-stack)
+-  [💟 How to Run](#-how-to-run)
+-  [💟 Tech Stack](#-tech-stack)
     - [🖥 Backend Server](#-backend-server)
-6. [💟 System Architecture](#-system-architecture)
+-  [💟 System Architecture](#-system-architecture)
     - [📂 Folder Structure](#-folder-structure)
     - [⚙️ Architecture Structure](#-architecture-structure)
     - [📋 ERD](#-erd)
-7. [💟 Commit Convention](#-commit-convention)
+-  [💟 Commit Convention](#-commit-convention)
 
 <br>
 
 ## 💟 Backend Team Members
-<hr>
 
 | Name 👩‍💻  | Major 🖥         | Contact mail 📧    |
 |-------|------------------|--------------------|
 | Haeyeon Song | Computer Science | hysong4u.gmail.com |
 
 ## 💟 Project Overview
-<hr>
 
-> 2024 GOOGLE SOLUTION CHALLENGE - TEAM GREEN
+> <i>'Connect the Silent World and the World of Sounds'</i>
 
 `COM-MA` is an "AI camera-based sign language learning education platform" that helps deaf parents teach sign language directly to their children, <b>CODAs</b> (Children of Deaf Adults).
 <br><br>The `COM-MA` Lens recognizes sign language and quickly converts it into learning materials for deaf parents. It offers these parents the opportunity to engage in sign language education with their children in everyday life.
@@ -43,7 +43,6 @@
 <br />
 
 ## 💟 Key Features
-<hr>
 
 ![System Architecture](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/58d603fb-5e4c-45f9-a767-4d7a5206217c)
 
@@ -62,7 +61,6 @@
 <br />
 
 ## 💟 How to Run
-<hr>
 
 ```bash
 # 1. Clone the project
@@ -82,7 +80,6 @@ java -jar comma-0.0.1-SNAPSHOT.jar
 
 ```
 ## 💟 Tech Stack
-<hr>
 
 ### 🖥 Backend Server
 
@@ -99,7 +96,6 @@ java -jar comma-0.0.1-SNAPSHOT.jar
 | Web Server          | ![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white)                                                                                                                                                              |
 
 ## 💟 System Architecture
-<hr>
 
 ### 📂 Folder Structure
 ```
@@ -134,7 +130,6 @@ java -jar comma-0.0.1-SNAPSHOT.jar
 ![Frame 7](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/c1a1e8aa-b4e4-4a60-a1a0-66d36d7b075a)
 <br />
 
-<hr>
 
 ### 📋 ERD
 <img width="783" alt="스크린샷 2024-02-21 오후 11 38 05" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/b1b8dc62-79bc-4060-84ca-fd969b539b77">
@@ -142,7 +137,6 @@ java -jar comma-0.0.1-SNAPSHOT.jar
 <br />
 
 ## 💟 Commit Convention
-<hr>
 
 - ➕ [ADD] : Additional code or library, creation of new files excluding FEAT
 - ✅ [MOD] : Code modification, internal file modification
