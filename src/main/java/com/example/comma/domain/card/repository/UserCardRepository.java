@@ -24,4 +24,6 @@ public interface UserCardRepository extends JpaRepository<UserCard, Long> {
     List<UserCard> findTop5ByUserIdOrderByCreateDateDesc(Long userId);
 
     List<UserCard> findByUser(User user);
+
+    Optional<Object> findUserCardByUserIdAndId(Long userId, Long userCardId);
 }

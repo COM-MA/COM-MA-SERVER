@@ -90,7 +90,7 @@ public class CardService {
 
     public void deleteCard(Long userId, Long userCardId) {
 
-        UserCard userCard = (UserCard) userCardRepository.findUserCardByUserIdAndCardId(userId, userCardId)
+        UserCard userCard = (UserCard) userCardRepository.findUserCardByUserIdAndId(userId, userCardId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
 
         userCardRepository.delete(userCard);
