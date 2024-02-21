@@ -1,7 +1,7 @@
 
 <div align="center">
 
-  <h1>AI Camera-Based Sign Language Platform for children’s CODA <br> <i>COM-MA</i></h1>
+  <h1>AI Camera-Based Sign Language Platform for CODA <br> <i>COM-MA</i></h1>
 
   <img src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/5cdd7168-3cee-4385-8944-c41d85ae18e4" alt="Slide 16_9 - 4">
 </div>
