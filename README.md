@@ -26,11 +26,12 @@
 
 <br>
 
-## 💟 Backend Team Members
+## 💟 Backend Member
 
-| Name 👩‍💻  | Major 🖥         | Contact mail 📧    |
-|-------|------------------|--------------------|
-| Haeyeon Song | Computer Science | hysong4u.gmail.com |
+| TEAM 👨‍👦‍👦  | Name 👩‍💻  | Major 🖥         | Contact mail 📧    |
+|----------|-------|------------------|--------------------|
+|Green | Haeyeon Song | Computer Science | hysong4u.gmail.com |
+<br>
 
 ## 💟 Project Overview
 
@@ -47,15 +48,22 @@
 
 ### 🔎 COM-MA Lens
 > AI-based camera recognizes sign language and provides images, text, and voice.
+<br>
 
 ### 🏷️ Word Cards
 > Cards for learning sign language, text, and voice for each word.
+<br>
 
 ### 💡 Quizzes
 > Create quizzes directly from saved word cards for educational use.
+<br>
 
 ### 📚 Storybooks
 > Easily watch and educate with subtitles or sign language provided in storybooks.
+<br>
+
+### 🟣 Daily Mission Stickers
+> Motivate users with one-day mission stickers such as word registration, quiz participation, and fairy tale viewing.
 
 <br />
 
@@ -78,21 +86,24 @@ cd COM-MA-SERVER/build/libs/
 java -jar comma-0.0.1-SNAPSHOT.jar
 
 ```
+<br>
+
 ## 💟 Tech Stack
 
 ### 🖥 Backend Server
 
 | Role               | Type                                                                                                                                                                                                                                                            |
 |---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Framework           | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot3-6DB33F?style=for-the-badge&logo=Spring&logoColor=white)                                                                                                                                              |
-| Language            | ![Java](https://img.shields.io/badge/Java17-004027?style=for-the-badge&logo=Java&logoColor=white)                                                                                                                                                               |
-| Build Tool          | ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white)                                                                                                                                                           |
-| Database            | ![MySQL](https://img.shields.io/badge/MySQL-003545?style=for-the-badge&logo=MySQL&logoColor=white)                                                                                                                                                              |
-| Database Service    | ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white)                                                                                                                                              |
-| Cloud Storage       | ![Amazon S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white)                                                                                                                                                 |
-| Cloud Server        | ![Amazon EC2](https://img.shields.io/badge/Amazon%20EC2-232F3E?style=for-the-badge&logo=AmazonEC2&logoColor=white)                                                                                                                                              |
-| Google API          | ![Oauth 2.0 API](https://img.shields.io/badge/OAuth%202.0%20API-4285F4?style=for-the-badge&logo=Google&logoColor=white)  ![Youtube DATA API V3](https://img.shields.io/badge/Youtube%20DATA%20API%20V3-FF0000?style=for-the-badge&logo=YouTube&logoColor=white) || Video API           
-| Web Server          | ![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white)                                                                                                                                                              |
+| Framework           | ![Spring Boot](https://img.shields.io/badge/Spring%20Boot3-6DB33F?style=for-the-badge&logo=Spring&logoColor=white&labelColor=2F2F2F)                                                                                                                                              |
+| Language            | ![Java](https://img.shields.io/badge/Java17-004027?style=for-the-badge&logo=Java&logoColor=white&labelColor=2F2F2F)                                                                                                                                                               |
+| Build Tool          | ![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white&labelColor=2F2F2F)                                                                                                                                                           |
+| Database &  Database Service             | ![MySQL](https://img.shields.io/badge/MySQL-003545?style=for-the-badge&logo=MySQL&logoColor=white&labelColor=2F2F2F)   ![Amazon RDS](https://img.shields.io/badge/Amazon%20RDS-527FFF?style=for-the-badge&logo=AmazonRDS&logoColor=white&labelColor=2F2F2F)                                                                                                                                                                |                                                                                                                                      |
+|  Cloud Server  & Cloud Storage       | ![Amazon S3](https://img.shields.io/badge/Amazon%20S3-569A31?style=for-the-badge&logo=AmazonS3&logoColor=white&labelColor=2F2F2F) ![Amazon EC2](https://img.shields.io/badge/Amazon%20EC2-232F3E?style=for-the-badge&logo=AmazonEC2&logoColor=white&labelColor=2F2F2F)                                                                                                                                                |
+|      |                                                                                                                                               |
+| Google API          | ![Oauth 2.0 API](https://img.shields.io/badge/OAuth%202.0%20API-4285F4?style=for-the-badge&logo=Google&logoColor=white&labelColor=2F2F2F)  ![Youtube DATA API V3](https://img.shields.io/badge/Youtube%20DATA%20API%20V3-FF0000?style=for-the-badge&logo=YouTube&logoColor=white&labelColor=2F2F2F) || Video API           
+| Web Server          | ![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=Nginx&logoColor=white&labelColor=2F2F2F)                                                                                                                                                              |
+
+<br>
 
 ## 💟 System Architecture
 
@@ -128,12 +139,13 @@ java -jar comma-0.0.1-SNAPSHOT.jar
 ### ⚙️ Architecture Structure
 ![Frame 7](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/c1a1e8aa-b4e4-4a60-a1a0-66d36d7b075a)
 <br />
-
+<hr>
 
 ### 📋 ERD
 <img width="783" alt="스크린샷 2024-02-21 오후 11 38 05" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/b1b8dc62-79bc-4060-84ca-fd969b539b77">
 
 <br />
+<hr>
 
 ## 💟 Commit Convention
 
