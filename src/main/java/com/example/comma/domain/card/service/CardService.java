@@ -115,12 +115,19 @@ public class CardService {
             throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
         }
 
-        int randomIndex = new Random().nextInt(remainUserCards.size());
-        UserCard randomUserCard = remainUserCards.get(randomIndex);
-        Card randomCard = randomUserCard.getCard();
+        UserCard randomUserCard = userCard;
+        Card randomCard;
+
+        while (randomUserCard.getId().equals(userCard.getId())) {
+            int randomIndex = new Random().nextInt(remainUserCards.size());
+            randomUserCard = remainUserCards.get(randomIndex);
+        }
+
+        randomCard = randomUserCard.getCard();
 
         return new WrongCardResponseDto(randomCard.getName(), randomCard.getCardImageUrl(), randomCard.getSignImageUrl());
     }
+
 
     public CorrectCardResponseDto getQuizCard(Long userCardId) {
         UserCard userCard = userCardRepository.findById(userCardId)
