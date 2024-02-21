@@ -50,6 +50,7 @@ Recognizing the importance of effective communication, there is a need for CODAs
 ## 💟 Project Overview
 
 > <i> 'Connect the Silent World and the World of Sounds'</i>
+
 `COM-MA` is an "AI camera-based sign language learning education platform" that helps deaf parents teach sign language directly to their children, <b>CODAs</b> (Children of Deaf Adults).
 <br><br>The `COM-MA` Lens recognizes sign language and quickly converts it into learning materials for deaf parents. It offers these parents the opportunity to engage in sign language education with their children in everyday life.
 
