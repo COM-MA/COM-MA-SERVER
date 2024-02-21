@@ -9,7 +9,9 @@
 ## 📍Table of Contents
 
 -  [💟 Backend Team Members](#-backend-member)
+-  [💟 Background](#-backgound)
 -  [💟 Project Overview](#-project-overview)
+-  [💟 UN SDG GOALS](#-un-sdg-goals)
 -  [💟 Key Features](#-key-features)
     - [🔎 COM-MA Lens](#-com-ma-lens)
     - [🏷️ Word Cards](#-word-cards)
