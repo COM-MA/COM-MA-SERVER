@@ -33,7 +33,7 @@
 
 | TEAM 👨‍👦‍👦  | Name 👩‍💻  | Major 🖥         | Contact mail 📧    |
 |----------|-------|------------------|--------------------|
-|Green | Haeyeon Song | Computer Science | hysong4u.gmail.com |
+|Green | Hayeon Song | Computer Science | hysong4u.gmail.com |
 <br>
 
 ## 💟 Background
