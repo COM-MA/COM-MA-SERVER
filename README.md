@@ -1,8 +1,9 @@
 <div align="center">
 
   <h2> <i>' COM-MA '</i> <br>AI Camera-Based Sign Language Education Platform for CODA<br></h2>
-
+  Youtube Link [https://youtu.be/9KRVqarybjo]
   <img src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/5cdd7168-3cee-4385-8944-c41d85ae18e4" alt="Slide 16_9 - 4">
+
 </div>
 
 
@@ -27,6 +28,9 @@
     - [📋 ERD](#-erd)
 -  [💟 Commit Convention](#-commit-convention)
 
+
+
+
 <br>
 
 ## 💟 Backend Member
@@ -35,6 +39,7 @@
 |----------|-------|------------------|--------------------|
 |Green | Hayeon Song | Computer Science | hysong4u.gmail.com |
 <br>
+
 
 ## 💟 Background
 In South Korea, a significant portion of the 400,000 registered deaf individuals are married, and the majority of their children, known as CODAs (Children of Deaf Adults), are hearing. 
