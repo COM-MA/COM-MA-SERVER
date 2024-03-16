@@ -106,6 +106,8 @@ Our solutions contribute to <b>overcoming the linguistic and cultural gaps</b> t
 ### 🟣 Daily Mission Stickers
 > Motivate users with one-day mission stickers such as word registration, quiz participation, and fairy tale viewing.
 
+![image](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/6411a3b1-b0e4-44be-bdac-c58102c602a3)
+
 <br />
 
 ## 💟 How to Run
