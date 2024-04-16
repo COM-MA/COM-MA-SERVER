@@ -24,7 +24,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class OauthService {
 
-    private final Environment env;
     private final UserRepository userRepository;
 
     @Value("${spring.security.oauth2.client.registration.google.client-id}")
