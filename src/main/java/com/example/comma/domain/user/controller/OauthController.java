@@ -21,7 +21,7 @@ public class OauthController {
     @GetMapping("/code/{registrationId}")
     ResponseEntity<SuccessResponse<?>> googleLogin(@RequestParam (name = "code") String code, @PathVariable (name = "registrationId") String registrationId) {
 
-        Long userId = oauthService.socialLogin(code, registrationId);
+        Long userId  = oauthService.socialLogin(code, registrationId);
         String accessToken = userService.issueNewAccessToken(userId);
         String randomNickname = userService.generateNickname();
 
@@ -29,4 +29,6 @@ public class OauthController {
 
         return SuccessResponse.ok(response);
     }
+
+
 }
