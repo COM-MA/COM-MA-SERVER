@@ -45,10 +45,6 @@ public class OauthService {
         String email = userResourceNode.get("email").asText();
         String nickname = userResourceNode.get("name").asText();
         String profileImage = userResourceNode.get("picture").asText();
-        System.out.println("Social ID: " + socialId);
-        System.out.println("Email: " + email);
-        System.out.println("Nickname: " + nickname);
-        System.out.println("Profile Image: " + profileImage);
 
         UserInfoResponseDto user = saveMember(socialId, nickname, email, profileImage);
         Long userId = user.id();
@@ -56,6 +52,7 @@ public class OauthService {
 
     }
 
+    // Oauth 토큰 가져오기
     public String getOauthToken(String code) {
         String tokenUri = "https://oauth2.googleapis.com/token";
 
@@ -81,6 +78,7 @@ public class OauthService {
         }
     }
 
+    // 유저 정보 가져오기
     public JsonNode getUserResource(String accessToken) {
         String apiUrl = "https://www.googleapis.com/oauth2/v2/userinfo";
 
@@ -105,6 +103,7 @@ public class OauthService {
         return userResourceNode;
     }
 
+    // 유저 저장
     public UserInfoResponseDto saveMember(String socialId, String name, String email, String profileImage) {
         User existMember = userRepository.findBySocialId(socialId);
 
