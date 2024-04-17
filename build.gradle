@@ -26,6 +26,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+
     // lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -41,7 +42,6 @@ dependencies {
     implementation group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
     implementation group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 
-
     //oauth2
     implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
@@ -55,7 +55,11 @@ dependencies {
     //implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     // aws
-    //implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.1'
+    implementation 'io.awspring.cloud:spring-cloud-starter-aws:2.4.1'
+
+    //jsoup
+    implementation 'org.jsoup:jsoup:1.15.3'
+
 }
 
 tasks.named('test') {
