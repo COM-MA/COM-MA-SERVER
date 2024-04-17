@@ -2,12 +2,14 @@ package com.example.comma.domain.card.controller;
 
 import com.example.comma.domain.card.dto.response.*;
 import com.example.comma.domain.card.service.CardService;
+import com.example.comma.domain.external.ImageCrawler;
 import com.example.comma.global.common.SuccessResponse;
 import com.example.comma.global.config.auth.UserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +18,19 @@ import java.util.List;
 @RestController
 public class CardController {
     private final CardService cardService;
+    private final ImageCrawler imageCrawler;
+
+
+    @GetMapping("/search")
+    public ResponseEntity<SuccessResponse<?>> getCardList(@RequestParam(name = "searchWord") String searchWord) throws IOException {
+        List<String> signImageUrls = imageCrawler.crawlImageUrls(searchWord);
+        byte[] mergeImages = imageCrawler.mergeImages(signImageUrls);
+        String url = imageCrawler.uploadFile(mergeImages, "merged_image.jpg");
+
+        return SuccessResponse.ok(url);
+    }
+
+
 
     @GetMapping("/{name}")
     public ResponseEntity<SuccessResponse<?>> getWord(@PathVariable(name = "name") String name) {
