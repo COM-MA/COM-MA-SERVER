@@ -2,7 +2,7 @@ package com.example.comma.domain.card.controller;
 
 import com.example.comma.domain.card.dto.response.*;
 import com.example.comma.domain.card.service.CardService;
-import com.example.comma.domain.external.ImageCrawler;
+import com.example.comma.domain.external.service.service.ImageCrawler;
 import com.example.comma.global.common.SuccessResponse;
 import com.example.comma.global.config.auth.UserId;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor

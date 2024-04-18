@@ -1,4 +1,4 @@
-package com.example.comma.domain.external;
+package com.example.comma.domain.external.service.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -53,7 +53,7 @@ public class ImageCrawler {
 
             String aElementText = aElement.text().trim();
 
-            if (!searchWord.equals(aElementText)) {
+            if (!aElementText.contains(searchWord)) {
                 throw new EntityNotFoundException(SIGNLANGUAGE_NOT_FOUND);
             }
 

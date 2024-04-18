@@ -27,8 +27,8 @@ public class SecurityConfig {
     private static final String[] whiteList = {"/",
             "api/user/token/**",
             "login/oauth2/code/google/**",
-            "/api/card/search/**",
-            "upload/**",
+            "/api/card/search/**", //임시
+            "/geminni" //임시
             };
 
     @Bean
