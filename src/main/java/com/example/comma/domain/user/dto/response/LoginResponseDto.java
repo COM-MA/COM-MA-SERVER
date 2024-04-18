@@ -2,7 +2,6 @@ package com.example.comma.domain.user.dto.response;
 
 public record LoginResponseDto(
         String accessToken,
-        String nickname,
-        Boolean isNew
+        String nickname
 ) {
 }

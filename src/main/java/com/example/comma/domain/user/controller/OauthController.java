@@ -32,15 +32,12 @@ public class OauthController {
         User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
 
         String nickname = user.getNickname();
-        if (nickname == null) { //
-            nickname = UserService.generateNickname();
-            LoginResponseDto response = new LoginResponseDto(accessToken, nickname,true);
-            return SuccessResponse.ok(response);
+        if (nickname == null) {
+            nickname = userService.generateNickname();
         }
-        else{
-            LoginResponseDto response = new LoginResponseDto(accessToken, nickname,false);
-            return SuccessResponse.ok(response);
-        }
+
+        LoginResponseDto response = new LoginResponseDto(accessToken, nickname);
+        return SuccessResponse.ok(response);
     }
 
 
