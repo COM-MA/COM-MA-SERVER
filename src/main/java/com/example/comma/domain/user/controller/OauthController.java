@@ -34,10 +34,13 @@ public class OauthController {
         String nickname = user.getNickname();
         if (nickname == null) {
             nickname = userService.generateNickname();
+            LoginResponseDto response = new LoginResponseDto(accessToken, nickname,true);
+            return SuccessResponse.ok(response);
         }
-
-        LoginResponseDto response = new LoginResponseDto(accessToken, nickname);
-        return SuccessResponse.ok(response);
+        else {
+            LoginResponseDto response = new LoginResponseDto(accessToken, nickname,false);
+            return SuccessResponse.ok(response);
+        }
     }
 
 
