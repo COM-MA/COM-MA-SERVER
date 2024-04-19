@@ -3,8 +3,10 @@ package com.example.comma.domain.external.service.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.example.comma.domain.card.dto.response.SearchListResponseDto;
 import com.example.comma.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -22,8 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
 
 import static com.example.comma.global.error.ErrorCode.SIGNLANGUAGE_NOT_FOUND;
@@ -97,7 +98,6 @@ public class ImageCrawler {
     }
 
 
-
     //이미지 S3 업로드
     public String uploadFile(byte[] fileData, String fileName) throws IOException {
         String directory = "mergedImg/";
@@ -148,10 +148,24 @@ public class ImageCrawler {
     }
 
 
-
-
-
+    public List<SearchListResponseDto> crawlSearchList(String searchWord) {
+        List<SearchListResponseDto> searchResults = new ArrayList<>();
+        try {
+            String searchUrl = "https://sldict.korean.go.kr/front/search/searchAllList.do?searchKeyword=" + searchWord;
+            Document doc = Jsoup.connect(searchUrl).get();
+            Elements aElements = doc.select("span[class=tit] a");
+            for (Element aElement : aElements) {
+                String text = aElement.text();
+                SearchListResponseDto result = new SearchListResponseDto(text);
+                searchResults.add(result);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return searchResults;
+    }
 }
+
 
 
 

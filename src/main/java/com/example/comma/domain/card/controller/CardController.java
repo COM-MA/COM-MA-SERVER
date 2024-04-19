@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/card")
@@ -21,6 +22,12 @@ public class CardController {
 
 
     @GetMapping("/search")
+    public ResponseEntity<SuccessResponse<?>> getSearchList(@RequestParam(name = "searchWord") String searchWord) {
+        List<SearchListResponseDto> searchResults = imageCrawler.crawlSearchList(searchWord);
+        return SuccessResponse.ok(searchResults);
+    }
+
+    @GetMapping("/image")
     public ResponseEntity<SuccessResponse<?>> getCardList(@RequestParam(name = "searchWord") String searchWord) throws IOException {
         List<String> signImageUrls = imageCrawler.crawlImageUrls(searchWord);
         byte[] mergeImages = imageCrawler.mergeImages(signImageUrls);
@@ -28,8 +35,6 @@ public class CardController {
 
         return SuccessResponse.ok(url);
     }
-
-
 
     @GetMapping("/{name}")
     public ResponseEntity<SuccessResponse<?>> getWord(@PathVariable(name = "name") String name) {

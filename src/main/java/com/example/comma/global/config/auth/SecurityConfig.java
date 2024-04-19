@@ -28,7 +28,8 @@ public class SecurityConfig {
             "api/user/token/**",
             "login/oauth2/code/google/**",
             "/api/card/search/**", //임시
-            "/geminni" //임시
+            "/gemini" ,//임시
+            "/generate-image" //임시
             };
 
     @Bean
