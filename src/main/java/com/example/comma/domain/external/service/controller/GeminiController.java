@@ -5,29 +5,29 @@ import com.example.comma.global.common.SuccessResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import net.minidev.json.JSONArray;
-import net.minidev.json.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.io.IOException;
 import java.util.Base64;
 
 @RequiredArgsConstructor
 @RestController
-public class GeminniController {
+public class GeminiController {
 
     private final ImageCrawler imageCrawler;
     private static final String API_ENDPOINT_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent";
-    private static final String API_KEY = "AIzaSyCgt_fuEZ2fU4z_t1KoHaNIxur_ML7kjgY";
+
+    @Value("${gemini.api.key}")
+    private String API_KEY;
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    @PostMapping("/geminni")
+    @GetMapping("/gemini")
     public ResponseEntity<?> generateImage(@RequestParam(name = "text") String text) {
         String requestBody = "{\"contents\": [{\"parts\": [{\"text\": \"" + text + "\"}]}]}";
 
@@ -70,19 +70,17 @@ public class GeminniController {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace(); // 오류 발생 시 로그에 출력
+            e.printStackTrace();
         }
-        return null; // 이미지가 발견되지 않았을 경우 null 반환
+        return null;
     }
-
 
     private boolean isImage(String text) {
         try {
-          Base64.getDecoder().decode(text);
+            Base64.getDecoder().decode(text);
             return true;
         } catch (IllegalArgumentException e) {
             return false;
         }
     }
-
 }
