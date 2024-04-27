@@ -185,7 +185,7 @@ public class ImageCrawler {
         headers.set("Authorization", "Bearer " + openaiApiKey);
 
         String requestBody = "{\"model\": \"dall-e-3\", \"prompt\": \"" + "[" +searchWord + "]"+
-                " [](대괄호) 안에 들어가는 단어에 대해 사실적인 이미지를 그대로 일러스트 화한 느낌으로, 아기자기하고 부드러운 그림체로 그려줘" +
+                " [](대괄호) 안에 들어가는 단어에 대해 사실적인 이미지를 그대로 일러스트 화한 느낌으로, 부드러운 그림체로 그려줘" +
                "\", \"n\": 1, \"size\": \"1024x1024\"}";
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
