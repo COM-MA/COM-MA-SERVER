@@ -37,8 +37,14 @@ public class CardController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<SuccessResponse<?>> getWord(@PathVariable(name = "name") String name) {
-        CardImageResponseDto CardImage = cardService.getCardImage(name);
+    public ResponseEntity<SuccessResponse<?>> getWord(@PathVariable(name = "name") String name) throws IOException {
+
+        Long cardId = cardService.getCardId(name);
+        List<String> signImageUrls = imageCrawler.crawlImageUrls(name);
+        byte[] mergeImages = imageCrawler.mergeImages(signImageUrls);
+        String signImageUrl = imageCrawler.uploadFile(mergeImages, "merged_image.jpg");
+        String generatedImageUrl = imageCrawler.generateImage(name);
+        CardImageResponseDto CardImage = new CardImageResponseDto(cardId, generatedImageUrl, signImageUrl);
         return SuccessResponse.ok(CardImage);
     }
 

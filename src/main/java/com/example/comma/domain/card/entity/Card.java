@@ -20,9 +20,9 @@ public class Card {
 
     private String name;
 
-    private String CardImageUrl;
+    private String cardImageUrl;
 
-    private String SignImageUrl;
+    private String signImageUrl;
 
 
     @OneToMany(mappedBy = "card")

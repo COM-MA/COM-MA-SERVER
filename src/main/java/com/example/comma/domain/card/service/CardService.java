@@ -8,6 +8,7 @@ import com.example.comma.domain.card.entity.Card;
 import com.example.comma.domain.card.entity.UserCard;
 import com.example.comma.domain.card.repository.CardRepository;
 import com.example.comma.domain.card.repository.UserCardRepository;
+import com.example.comma.domain.external.service.ImageCrawler;
 import com.example.comma.domain.user.entity.User;
 import com.example.comma.domain.user.repository.UserRepository;
 import com.example.comma.global.error.ErrorCode;
@@ -19,6 +20,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -32,12 +34,12 @@ public class CardService {
     private final CardRepository cardRepository;
     private final UserRepository userRepository;
     private final UserCardRepository userCardRepository;
+    private final ImageCrawler imageCrawler;
 
-    public CardImageResponseDto getCardImage(String name) {
-        System.out.println("name = " + name);
+    public Long getCardId(String name) {
         Card card = cardRepository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CARD_NOT_FOUND));
-        return new CardImageResponseDto(card.getId(), card.getCardImageUrl(), card.getSignImageUrl());
+        return card.getId();
     }
 
 
