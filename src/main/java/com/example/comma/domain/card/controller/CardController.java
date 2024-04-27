@@ -2,7 +2,7 @@ package com.example.comma.domain.card.controller;
 
 import com.example.comma.domain.card.dto.response.*;
 import com.example.comma.domain.card.service.CardService;
-import com.example.comma.domain.external.service.service.ImageCrawler;
+import com.example.comma.domain.external.service.ImageCrawler;
 import com.example.comma.global.common.SuccessResponse;
 import com.example.comma.global.config.auth.UserId;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/card")
@@ -22,7 +21,7 @@ public class CardController {
 
 
     @GetMapping("/search")
-    public ResponseEntity<SuccessResponse<?>> getSearchList(@RequestParam(name = "searchWord") String searchWord) {
+    public ResponseEntity<SuccessResponse<?>> getSearchList(@RequestParam(name = "searchWord") String searchWord) throws IOException {
         List<SearchListResponseDto> searchResults = imageCrawler.crawlSearchList(searchWord);
         return SuccessResponse.ok(searchResults);
     }
@@ -31,9 +30,10 @@ public class CardController {
     public ResponseEntity<SuccessResponse<?>> getCardList(@RequestParam(name = "searchWord") String searchWord) throws IOException {
         List<String> signImageUrls = imageCrawler.crawlImageUrls(searchWord);
         byte[] mergeImages = imageCrawler.mergeImages(signImageUrls);
-        String url = imageCrawler.uploadFile(mergeImages, "merged_image.jpg");
-
-        return SuccessResponse.ok(url);
+        String signImageUrl = imageCrawler.uploadFile(mergeImages, "merged_image.jpg");
+        String generatedImageUrl = imageCrawler.generateImage(searchWord);
+        SearchCardResponseDto generatedUrl = new SearchCardResponseDto(generatedImageUrl, signImageUrl);
+        return SuccessResponse.ok(generatedUrl);
     }
 
     @GetMapping("/{name}")
