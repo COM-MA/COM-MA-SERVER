@@ -63,7 +63,6 @@ public class ImageCrawler {
             assert aElement != null;
 
             String aElementText = aElement.text().trim();
-
             if (!aElementText.contains(searchWord)) {
                 throw new EntityNotFoundException(SIGNLANGUAGE_NOT_FOUND);
             }
@@ -106,6 +105,7 @@ public class ImageCrawler {
             throw new RuntimeException(e);
         }
     }
+
 
 
     //이미지 S3 업로드

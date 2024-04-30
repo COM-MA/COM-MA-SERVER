@@ -30,9 +30,11 @@ public class CardController {
     public ResponseEntity<SuccessResponse<?>> getCardList(@RequestParam(name = "searchWord") String searchWord) throws IOException {
         List<String> signImageUrls = imageCrawler.crawlImageUrls(searchWord);
         byte[] mergeImages = imageCrawler.mergeImages(signImageUrls);
-        String signImageUrl = imageCrawler.uploadFile(mergeImages, "merged_image.jpg");
+        String signImageUrl = imageCrawler.uploadFile(mergeImages, searchWord + ".jpg");
         String generatedImageUrl = imageCrawler.generateImage(searchWord);
         SearchCardResponseDto generatedUrl = new SearchCardResponseDto(generatedImageUrl, signImageUrl);
+
+        cardService.registerCard(searchWord, signImageUrl);
         return SuccessResponse.ok(generatedUrl);
     }
 
@@ -40,17 +42,23 @@ public class CardController {
     public ResponseEntity<SuccessResponse<?>> getWord(@PathVariable(name = "name") String name) throws IOException {
 
         Long cardId = cardService.getCardId(name);
+
         List<String> signImageUrls = imageCrawler.crawlImageUrls(name);
         byte[] mergeImages = imageCrawler.mergeImages(signImageUrls);
-        String signImageUrl = imageCrawler.uploadFile(mergeImages, "merged_image.jpg");
+        String signImageUrl = imageCrawler.uploadFile(mergeImages, name + ".jpg");
         String generatedImageUrl = imageCrawler.generateImage(name);
+
         CardImageResponseDto CardImage = new CardImageResponseDto(cardId, generatedImageUrl, signImageUrl);
+        cardService.registerCard(name, signImageUrl);
+
         return SuccessResponse.ok(CardImage);
+
     }
 
     @PostMapping("/{cardId}")
-    public ResponseEntity<SuccessResponse<?>> createCard(@UserId Long userId, @PathVariable(name = "cardId") Long cardId) {
-        cardService.createCard(userId, cardId);
+    public ResponseEntity<SuccessResponse<?>> createCard(@UserId Long userId, @PathVariable(name = "cardId") Long cardId, @RequestBody String cardImageUrl) {
+       // cardService.createCard(userId, cardId);
+        cardService.saveCard(userId, cardId, cardImageUrl);
         return SuccessResponse.created(null);
     }
 

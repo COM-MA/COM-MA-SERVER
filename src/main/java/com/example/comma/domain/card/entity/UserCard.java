@@ -31,11 +31,12 @@ public class UserCard extends BaseTimeEntity {
 
     private String CardImageUrl;
 
-    public UserCard(User user, Card card, Boolean quizParticipation, Boolean cardRegistration) {
+    public UserCard(User user, Card card, Boolean quizParticipation, Boolean cardRegistration, String CardImageUrl) {
         this.user = user;
         this.card = card;
         this.quizParticipation = quizParticipation;
         this.cardRegistration = cardRegistration;
+        this.CardImageUrl = CardImageUrl;
     }
 
     public void setQuizParticipation(Boolean quizParticipation) {
