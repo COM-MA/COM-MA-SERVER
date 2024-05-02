@@ -1,7 +1,9 @@
 package com.example.comma.domain.card.service;
 
+import com.example.comma.domain.card.dto.request.CardInfoRequest;
 import com.example.comma.domain.card.dto.response.CardResponseDto;
 import com.example.comma.domain.card.dto.response.CorrectCardResponseDto;
+import com.example.comma.domain.card.dto.response.MyCardResponseDto;
 import com.example.comma.domain.card.dto.response.WrongCardResponseDto;
 import com.example.comma.domain.card.entity.Card;
 import com.example.comma.domain.card.entity.UserCard;
@@ -51,7 +53,7 @@ public class CardService {
     }
 
 
-    public void saveCard(Long userId, Long cardId, String cardImageUrl) {
+    public void saveCard(Long userId, Long cardId, CardInfoRequest cardInfoRequest) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
 
@@ -62,7 +64,7 @@ public class CardService {
             throw new ConflictException(ErrorCode.USER_CARD_ALREADY_EXISTS);
         }
 
-        UserCard userCard = new UserCard(user, card, false, true, cardImageUrl);
+        UserCard userCard = new UserCard(user, card, false, true, cardInfoRequest.cardImageUrl(), cardInfoRequest.signLanguageDescription());
 
         userCardRepository.save(userCard);
     }
@@ -157,5 +159,13 @@ public class CardService {
     public List<CardResponseDto> getTop5Cards(Long userId) {
         List<UserCard> userCards = userCardRepository.findTop5ByUserIdOrderByCreateDateDesc(userId);
         return convertToCardResponseDtos(userCards);
+    }
+
+    public MyCardResponseDto getMyCard(Long userCardId) {
+        UserCard userCard = userCardRepository.findById(userCardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
+
+        Card card = userCard.getCard();
+        return new MyCardResponseDto(card.getName(), userCard.getCardImageUrl(),card.getSignImageUrl(), userCard.getSignLanguageDescription());
     }
 }

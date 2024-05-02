@@ -1,6 +1,6 @@
 package com.example.comma.domain.card.controller;
 
-import com.example.comma.domain.card.dto.request.CardImageRequest;
+import com.example.comma.domain.card.dto.request.CardInfoRequest;
 import com.example.comma.domain.card.dto.response.*;
 import com.example.comma.domain.card.service.CardService;
 import com.example.comma.domain.external.service.GeminiService;
@@ -57,11 +57,19 @@ public class CardController {
         return SuccessResponse.ok(wordDatailsResponse);
     }
 
+
     //UserCard 단어 카드 저장
     @PostMapping("/{cardId}")
-    public ResponseEntity<SuccessResponse<?>> createCard(@UserId Long userId, @PathVariable(name = "cardId") Long cardId, @RequestBody CardImageRequest cardImageRequest) {
-        cardService.saveCard(userId, cardId, cardImageRequest.cardImageUrl());
+    public ResponseEntity<SuccessResponse<?>> saveCard(@UserId Long userId, @PathVariable(name = "cardId") Long cardId, @RequestBody CardInfoRequest cardInfoRequest) {
+        cardService.saveCard(userId, cardId, cardInfoRequest);
         return SuccessResponse.created(null);
+    }
+
+    //UserCard 개별 정보 조회
+    @GetMapping("/my-card/{userCardId}")
+    public ResponseEntity<SuccessResponse<?>> getMyCard(@PathVariable(name = "userCardId") Long userCardId) {
+       MyCardResponseDto myCard = cardService.getMyCard(userCardId);
+        return SuccessResponse.ok(myCard);
     }
 
     @GetMapping("/lastest")

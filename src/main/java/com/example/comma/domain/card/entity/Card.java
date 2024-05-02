@@ -22,7 +22,6 @@ public class Card {
 
     private String signImageUrl;
 
-
     @OneToMany(mappedBy = "card")
     private List<UserCard> userCardList;
 
