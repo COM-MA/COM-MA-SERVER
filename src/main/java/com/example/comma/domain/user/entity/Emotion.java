@@ -11,9 +11,13 @@ public enum Emotion {
     ANXIOUS("불안해요"),
     NONE("모르겠어요");
 
-    private final String emotion;
+    private final String koreanEmotion;
 
-    Emotion(String emotion) {
-        this.emotion = emotion;
+    Emotion(String koreanEmotion) {
+        this.koreanEmotion = koreanEmotion;
+    }
+
+    public String getKoreanEmotion() {
+        return koreanEmotion;
     }
 }
