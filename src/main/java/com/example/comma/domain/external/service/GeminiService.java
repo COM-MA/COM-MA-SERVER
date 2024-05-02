@@ -21,11 +21,11 @@ public class GeminiService {
 
     //수형 설명 검색
 
-    public String generateResponse(String text) {
+    public String generateSignDescription(String text) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        text = "한국 수화 단어 중 " + text + "에 대한 수형 설명해줘";
+        text = "한국 수화 단어 중 " + text + "에 대한 수화 동작 방법만 작성";
         String requestBody = "{\"contents\": [{\"parts\":[{\"text\":\"" + text + "\"}]}]}";
 
         return sendGeminiResponse(requestBody);
