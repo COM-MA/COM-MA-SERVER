@@ -3,7 +3,6 @@ package com.example.comma.domain.external.service;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.example.comma.domain.card.dto.response.SearchListResponseDto;
 import com.example.comma.global.error.exception.EntityNotFoundException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,7 +35,7 @@ import static com.example.comma.global.error.ErrorCode.SIGNLANGUAGE_NOT_FOUND;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class ImageCrawler {
+public class ImageCrawlerService {
 
     private final AmazonS3 amazonS3;
 
@@ -159,16 +158,15 @@ public class ImageCrawler {
     }
 
 
-    public List<SearchListResponseDto> crawlSearchList(String searchWord) {
-        List<SearchListResponseDto> searchResults = new ArrayList<>();
+    public List<String> crawlSearchList(String searchWord) {
+        List<String> searchResults = new ArrayList<>();
         try {
             String searchUrl = "https://sldict.korean.go.kr/front/search/searchAllList.do?searchKeyword=" + searchWord;
             Document doc = Jsoup.connect(searchUrl).get();
             Elements aElements = doc.select("span[class=tit] a");
             for (Element aElement : aElements) {
                 String text = aElement.text();
-                SearchListResponseDto result = new SearchListResponseDto(text);
-                searchResults.add(result);
+                searchResults.add(text);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

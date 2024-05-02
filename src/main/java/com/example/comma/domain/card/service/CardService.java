@@ -1,6 +1,5 @@
 package com.example.comma.domain.card.service;
 
-import com.example.comma.domain.card.dto.response.CardImageResponseDto;
 import com.example.comma.domain.card.dto.response.CardResponseDto;
 import com.example.comma.domain.card.dto.response.CorrectCardResponseDto;
 import com.example.comma.domain.card.dto.response.WrongCardResponseDto;
@@ -8,7 +7,7 @@ import com.example.comma.domain.card.entity.Card;
 import com.example.comma.domain.card.entity.UserCard;
 import com.example.comma.domain.card.repository.CardRepository;
 import com.example.comma.domain.card.repository.UserCardRepository;
-import com.example.comma.domain.external.service.ImageCrawler;
+import com.example.comma.domain.external.service.ImageCrawlerService;
 import com.example.comma.domain.user.entity.User;
 import com.example.comma.domain.user.repository.UserRepository;
 import com.example.comma.global.error.ErrorCode;
@@ -20,7 +19,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -35,7 +33,7 @@ public class CardService {
     private final CardRepository cardRepository;
     private final UserRepository userRepository;
     private final UserCardRepository userCardRepository;
-    private final ImageCrawler imageCrawler;
+    private final ImageCrawlerService imageCrawlerService;
 
     public Long getCardId(String name) {
         Card card = cardRepository.findByName(name)

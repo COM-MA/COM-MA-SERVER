@@ -2,7 +2,8 @@ package com.example.comma.domain.card.controller;
 
 import com.example.comma.domain.card.dto.response.*;
 import com.example.comma.domain.card.service.CardService;
-import com.example.comma.domain.external.service.ImageCrawler;
+import com.example.comma.domain.external.service.GeminiService;
+import com.example.comma.domain.external.service.ImageCrawlerService;
 import com.example.comma.global.common.SuccessResponse;
 import com.example.comma.global.config.auth.UserId;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -17,25 +19,42 @@ import java.util.List;
 @RestController
 public class CardController {
     private final CardService cardService;
-    private final ImageCrawler imageCrawler;
+    private final GeminiService geminiService;
+    private final ImageCrawlerService imageCrawlerService;
 
 
-    @GetMapping("/search")
+    //단어 검색
+    @GetMapping("/search-word")
     public ResponseEntity<SuccessResponse<?>> getSearchList(@RequestParam(name = "searchWord") String searchWord) throws IOException {
-        List<SearchListResponseDto> searchResults = imageCrawler.crawlSearchList(searchWord);
-        return SuccessResponse.ok(searchResults);
+        List<String> searchResults = imageCrawlerService.crawlSearchList(searchWord);
+        List<DescriptionResponseDto> descriptionResponse = geminiService.generateDescriptionList(searchResults);
+        return SuccessResponse.ok(descriptionResponse);
     }
 
-    @GetMapping("/image")
-    public ResponseEntity<SuccessResponse<?>> getCardList(@RequestParam(name = "searchWord") String searchWord) throws IOException {
-        List<String> signImageUrls = imageCrawler.crawlImageUrls(searchWord);
-        byte[] mergeImages = imageCrawler.mergeImages(signImageUrls);
-        String signImageUrl = imageCrawler.uploadFile(mergeImages, searchWord + ".jpg");
-        String generatedImageUrl = imageCrawler.generateImage(searchWord);
+    //수형 설명 검색
+    @GetMapping("/search-details")
+    public ResponseEntity<SuccessResponse<?>> generateResponse(@RequestParam(name = "searchWord") String searchWord) throws IOException {
+
+       //수형, 단어 이미지 생성
+        List<String> signImageUrls = imageCrawlerService.crawlImageUrls(searchWord);
+        byte[] mergeImages = imageCrawlerService.mergeImages(signImageUrls);
+        String signImageUrl = imageCrawlerService.uploadFile(mergeImages, searchWord + ".jpg");
+        String generatedImageUrl = imageCrawlerService.generateImage(searchWord);
         SearchCardResponseDto generatedUrl = new SearchCardResponseDto(generatedImageUrl, signImageUrl);
 
+        //cardId 생성
         cardService.registerCard(searchWord, signImageUrl);
-        return SuccessResponse.ok(generatedUrl);
+        Long cardId = cardService.getCardId(searchWord);
+
+        //단어 사전 정의 생성
+        List<DescriptionResponseDto> descriptionResponse = geminiService.generateDescriptionList(Collections.singletonList(searchWord));
+
+        //수형 동작 설명
+        String generatesignLanguageDescription= geminiService.generateResponse(searchWord);
+
+        WordDatailsResponseDto wordDatailsResponse = new WordDatailsResponseDto(cardId, searchWord, descriptionResponse.get(0).description(),descriptionResponse.get(0).partsOfSeech(), generatedImageUrl, signImageUrl,generatesignLanguageDescription );
+
+        return SuccessResponse.ok(wordDatailsResponse);
     }
 
     @GetMapping("/{name}")
@@ -43,10 +62,10 @@ public class CardController {
 
         Long cardId = cardService.getCardId(name);
 
-        List<String> signImageUrls = imageCrawler.crawlImageUrls(name);
-        byte[] mergeImages = imageCrawler.mergeImages(signImageUrls);
-        String signImageUrl = imageCrawler.uploadFile(mergeImages, name + ".jpg");
-        String generatedImageUrl = imageCrawler.generateImage(name);
+        List<String> signImageUrls = imageCrawlerService.crawlImageUrls(name);
+        byte[] mergeImages = imageCrawlerService.mergeImages(signImageUrls);
+        String signImageUrl = imageCrawlerService.uploadFile(mergeImages, name + ".jpg");
+        String generatedImageUrl = imageCrawlerService.generateImage(name);
 
         CardImageResponseDto CardImage = new CardImageResponseDto(cardId, generatedImageUrl, signImageUrl);
         cardService.registerCard(name, signImageUrl);
