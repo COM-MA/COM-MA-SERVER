@@ -1,19 +1,21 @@
 package com.example.comma.domain.user.service;
 
-import com.example.comma.domain.card.dto.response.CardResponseDto;
 import com.example.comma.domain.card.entity.UserCard;
 import com.example.comma.domain.card.repository.UserCardRepository;
-import com.example.comma.domain.card.service.CardService;
 import com.example.comma.domain.fairytale.entity.UserFairytale;
 import com.example.comma.domain.fairytale.repository.UserFairytaleRepository;
+import com.example.comma.domain.user.dto.request.EmotionRequest;
+import com.example.comma.domain.user.dto.response.EmotionResponse;
 import com.example.comma.domain.user.dto.response.HomepageResponseDto;
 import com.example.comma.domain.user.dto.response.UserTokenResponseDto;
+import com.example.comma.domain.user.entity.Emotion;
 import com.example.comma.domain.user.entity.User;
 import com.example.comma.domain.user.repository.UserRepository;
 import com.example.comma.global.config.auth.jwt.JwtProvider;
 import com.example.comma.global.error.ErrorCode;
 import com.example.comma.global.error.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -103,7 +105,36 @@ public class UserService {
         return array[randomIndex];
     }
 
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void initEmotion() {
+        userRepository.findAll().forEach(user -> {
+            user.setParentEmotion(null);
+            user.setChildEmotion(null);
+            userRepository.save(user);
+        });
+    }
 
 
+    public void registerEmotion(Long userId, EmotionRequest emotionRequest) {
+        System.out.println(emotionRequest);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
+
+        user.setParentEmotion(emotionRequest.parentEmotion());
+        user.setChildEmotion(emotionRequest.childEmotion());
+    }
+
+    public EmotionResponse getEmotion(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
+
+        Emotion parentEmotion = user.getParentEmotion();
+        Emotion childEmotion = user.getChildEmotion();
+
+        return EmotionResponse.builder()
+                .parentEmotion(parentEmotion.getKoreanEmotion())
+                .childEmotion(childEmotion.getKoreanEmotion())
+                .build();
+    }
 
 }

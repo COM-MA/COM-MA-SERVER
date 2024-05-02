@@ -1,13 +1,15 @@
 package com.example.comma.domain.card.service;
 
-import com.example.comma.domain.card.dto.response.CardImageResponseDto;
+import com.example.comma.domain.card.dto.request.CardInfoRequest;
 import com.example.comma.domain.card.dto.response.CardResponseDto;
 import com.example.comma.domain.card.dto.response.CorrectCardResponseDto;
+import com.example.comma.domain.card.dto.response.MyCardResponseDto;
 import com.example.comma.domain.card.dto.response.WrongCardResponseDto;
 import com.example.comma.domain.card.entity.Card;
 import com.example.comma.domain.card.entity.UserCard;
 import com.example.comma.domain.card.repository.CardRepository;
 import com.example.comma.domain.card.repository.UserCardRepository;
+import com.example.comma.domain.external.service.ImageCrawlerService;
 import com.example.comma.domain.user.entity.User;
 import com.example.comma.domain.user.repository.UserRepository;
 import com.example.comma.global.error.ErrorCode;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -32,17 +35,25 @@ public class CardService {
     private final CardRepository cardRepository;
     private final UserRepository userRepository;
     private final UserCardRepository userCardRepository;
+    private final ImageCrawlerService imageCrawlerService;
 
-    public CardImageResponseDto getCardImage(String name) {
-        System.out.println("name = " + name);
+    public Long getCardId(String name) {
         Card card = cardRepository.findByName(name)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CARD_NOT_FOUND));
-        return new CardImageResponseDto(card.getId(), card.getCardImageUrl(), card.getSignImageUrl());
+        return card.getId();
+    }
+
+    public void registerCard(String name, String signImageUrl) {
+        Optional<Card> existingCardOptional = cardRepository.findByName(name);
+        if (existingCardOptional.isPresent()) {
+            return;
+        }
+        Card newCard = new Card(name, signImageUrl);
+        cardRepository.save(newCard);
     }
 
 
-    public void createCard(Long userId, Long cardId) {
-
+    public void saveCard(Long userId, Long cardId, CardInfoRequest cardInfoRequest) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
 
@@ -53,10 +64,11 @@ public class CardService {
             throw new ConflictException(ErrorCode.USER_CARD_ALREADY_EXISTS);
         }
 
-        UserCard userCard = new UserCard(user, card, false, true);
+        UserCard userCard = new UserCard(user, card, false, true, cardInfoRequest.cardImageUrl(), cardInfoRequest.signLanguageDescription());
 
         userCardRepository.save(userCard);
     }
+
 
     @Transactional
     @Scheduled(cron = "0 0 0 * * ?")
@@ -82,7 +94,7 @@ public class CardService {
         return userCards.stream()
                 .map(userCard -> {
                     Card card = userCard.getCard();
-                    return new CardResponseDto(userCard.getId(), card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
+                    return new CardResponseDto(userCard.getId(), card.getName(), userCard.getCardImageUrl(), card.getSignImageUrl());
                 })
                 .collect(Collectors.toList());
     }
@@ -102,13 +114,12 @@ public class CardService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
 
         Card card = userCard.getCard();
-        return new CardResponseDto(card.getId(), card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
+        return new CardResponseDto(card.getId(), card.getName(), userCard.getCardImageUrl(), card.getSignImageUrl());
     }
 
     public WrongCardResponseDto getRandomQuizCard(Long userCardId) {
         UserCard userCard = userCardRepository.findById(userCardId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
-
         List<UserCard> remainUserCards = userCardRepository.findUserCardByUserIdAndCardIdNot(userCard.getUser().getId(), userCardId);
 
         if (remainUserCards.size() <= 1) {
@@ -125,7 +136,7 @@ public class CardService {
 
         randomCard = randomUserCard.getCard();
 
-        return new WrongCardResponseDto(randomCard.getName(), randomCard.getCardImageUrl(), randomCard.getSignImageUrl());
+        return new WrongCardResponseDto(randomCard.getName(), randomUserCard.getCardImageUrl(), randomCard.getSignImageUrl());
     }
 
 
@@ -134,7 +145,7 @@ public class CardService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
 
         Card card = userCard.getCard();
-        return new CorrectCardResponseDto(card.getName(), card.getCardImageUrl(), card.getSignImageUrl());
+        return new CorrectCardResponseDto(card.getName(), userCard.getCardImageUrl(), card.getSignImageUrl());
     }
 
     @Transactional
@@ -148,5 +159,13 @@ public class CardService {
     public List<CardResponseDto> getTop5Cards(Long userId) {
         List<UserCard> userCards = userCardRepository.findTop5ByUserIdOrderByCreateDateDesc(userId);
         return convertToCardResponseDtos(userCards);
+    }
+
+    public MyCardResponseDto getMyCard(Long userCardId) {
+        UserCard userCard = userCardRepository.findById(userCardId)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_CARD_NOT_FOUND));
+
+        Card card = userCard.getCard();
+        return new MyCardResponseDto(card.getName(), userCard.getCardImageUrl(),card.getSignImageUrl(), userCard.getSignLanguageDescription());
     }
 }

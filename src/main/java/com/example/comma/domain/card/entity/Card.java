@@ -20,12 +20,14 @@ public class Card {
 
     private String name;
 
-    private String CardImageUrl;
-
-    private String SignImageUrl;
-
+    private String signImageUrl;
 
     @OneToMany(mappedBy = "card")
     private List<UserCard> userCardList;
+
+    public Card(String name, String signImageUrl) {
+        this.name = name;
+        this.signImageUrl = signImageUrl;
+    }
 
 }

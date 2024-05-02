@@ -27,6 +27,8 @@ public class SecurityConfig {
     private static final String[] whiteList = {"/",
             "api/user/token/**",
             "login/oauth2/code/google/**",
+            "/gemini",//임시
+            "/push-notification" //임시
             };
 
     @Bean

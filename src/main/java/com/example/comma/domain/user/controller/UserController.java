@@ -1,10 +1,11 @@
 package com.example.comma.domain.user.controller;
 
-import ch.qos.logback.core.net.HardenedObjectInputStream;
 import com.example.comma.domain.card.dto.response.CardResponseDto;
 import com.example.comma.domain.card.service.CardService;
 import com.example.comma.domain.fairytale.dto.Top2FairytaleResponseDto;
 import com.example.comma.domain.fairytale.service.FairytaleService;
+import com.example.comma.domain.user.dto.request.EmotionRequest;
+import com.example.comma.domain.user.dto.response.EmotionResponse;
 import com.example.comma.domain.user.dto.response.HomepageResponseDto;
 import com.example.comma.domain.user.service.UserService;
 import com.example.comma.global.common.SuccessResponse;
@@ -51,6 +52,18 @@ public class UserController {
         responseData.put("top5Cards", cardResponseDto);
         responseData.put("home", homepageResponseDto);
         return SuccessResponse.ok(responseData);
+    }
+
+    @PostMapping("/emotion")
+    public ResponseEntity<SuccessResponse<?>> registerEmotion(@UserId Long userId, @RequestBody EmotionRequest emotionRequest){
+        userService.registerEmotion(userId, emotionRequest);
+        return SuccessResponse.created(null);
+    }
+
+    @GetMapping("/emotion")
+    public ResponseEntity<SuccessResponse<?>> getEmotion(@UserId Long userId){
+        EmotionResponse emotionResponse = userService.getEmotion(userId);
+        return SuccessResponse.ok(emotionResponse);
     }
 
 

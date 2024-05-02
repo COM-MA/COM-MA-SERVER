@@ -37,6 +37,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 유저를 찾을 수 없습니다."),
     USER_CARD_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 유저가 등록한 카드를 찾을 수 없습니다."),
     FAIRYTALE_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 동화를 찾을 수 없습니다."),
+    SIGNLANGUAGE_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 수화 카드를 찾을 수 없습니다."),
     /**
      * 405 Method Not Allowed
      */
