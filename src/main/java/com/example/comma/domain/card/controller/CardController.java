@@ -58,24 +58,6 @@ public class CardController {
         return SuccessResponse.ok(wordDatailsResponse);
     }
 
-    //단어 인식으로 단어 정보 가져오기
-    @GetMapping("/{name}")
-    public ResponseEntity<SuccessResponse<?>> getWord(@PathVariable(name = "name") String name) throws IOException {
-
-        Long cardId = cardService.getCardId(name);
-
-        List<String> signImageUrls = imageCrawlerService.crawlImageUrls(name);
-        byte[] mergeImages = imageCrawlerService.mergeImages(signImageUrls);
-        String signImageUrl = imageCrawlerService.uploadFile(mergeImages, name + ".jpg");
-        String generatedImageUrl = imageCrawlerService.generateImage(name);
-
-        CardImageResponseDto CardImage = new CardImageResponseDto(cardId, generatedImageUrl, signImageUrl);
-        cardService.registerCard(name, signImageUrl);
-
-        return SuccessResponse.ok(CardImage);
-
-    }
-
     //UserCard 단어 카드 저장
     @PostMapping("/{cardId}")
     public ResponseEntity<SuccessResponse<?>> createCard(@UserId Long userId, @PathVariable(name = "cardId") Long cardId, @RequestBody CardImageRequest cardImageRequest) {

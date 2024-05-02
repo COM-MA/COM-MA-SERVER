@@ -51,25 +51,6 @@ public class CardService {
     }
 
 
-    /*
-    public void createCard(Long userId, Long cardId) {
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
-
-        Card card = cardRepository.findById(cardId)
-                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.CARD_NOT_FOUND));
-
-        if (userCardRepository.existsByUserAndCard(user, card)) {
-            throw new ConflictException(ErrorCode.USER_CARD_ALREADY_EXISTS);
-        }
-
-        UserCard userCard = new UserCard(user, card, false, true);
-
-        userCardRepository.save(userCard);
-    }
-
-*/
     public void saveCard(Long userId, Long cardId, String cardImageUrl) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USER_NOT_FOUND));
