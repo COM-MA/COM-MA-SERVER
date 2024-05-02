@@ -1,5 +1,6 @@
 package com.example.comma.domain.card.controller;
 
+import com.example.comma.domain.card.dto.request.CardImageRequest;
 import com.example.comma.domain.card.dto.response.*;
 import com.example.comma.domain.card.service.CardService;
 import com.example.comma.domain.external.service.GeminiService;
@@ -23,7 +24,7 @@ public class CardController {
     private final ImageCrawlerService imageCrawlerService;
 
 
-    //단어 검색
+    //단어 리스트 검색
     @GetMapping("/search-word")
     public ResponseEntity<SuccessResponse<?>> getSearchList(@RequestParam(name = "searchWord") String searchWord) throws IOException {
         List<String> searchResults = imageCrawlerService.crawlSearchList(searchWord);
@@ -31,7 +32,7 @@ public class CardController {
         return SuccessResponse.ok(descriptionResponse);
     }
 
-    //수형 설명 검색
+    //단어 상세 정보 조회
     @GetMapping("/search-details")
     public ResponseEntity<SuccessResponse<?>> generateResponse(@RequestParam(name = "searchWord") String searchWord) throws IOException {
 
@@ -57,6 +58,7 @@ public class CardController {
         return SuccessResponse.ok(wordDatailsResponse);
     }
 
+    //단어 인식으로 단어 정보 가져오기
     @GetMapping("/{name}")
     public ResponseEntity<SuccessResponse<?>> getWord(@PathVariable(name = "name") String name) throws IOException {
 
@@ -74,10 +76,10 @@ public class CardController {
 
     }
 
+    //UserCard 단어 카드 저장
     @PostMapping("/{cardId}")
-    public ResponseEntity<SuccessResponse<?>> createCard(@UserId Long userId, @PathVariable(name = "cardId") Long cardId, @RequestBody String cardImageUrl) {
-       // cardService.createCard(userId, cardId);
-        cardService.saveCard(userId, cardId, cardImageUrl);
+    public ResponseEntity<SuccessResponse<?>> createCard(@UserId Long userId, @PathVariable(name = "cardId") Long cardId, @RequestBody CardImageRequest cardImageRequest) {
+        cardService.saveCard(userId, cardId, cardImageRequest.cardImageUrl());
         return SuccessResponse.created(null);
     }
 
