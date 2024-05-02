@@ -30,6 +30,14 @@ public class User extends BaseTimeEntity {
 
     private String profileImage;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "parent_emotion")
+    private Emotion parentEmotion;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "child_emotion")
+    private Emotion childEmotion;
+
     @Column(nullable = false)
     private String socialId;
 
@@ -49,6 +57,14 @@ public class User extends BaseTimeEntity {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void setParentEmotion(Emotion parentEmotion) {
+        this.parentEmotion = parentEmotion;
+    }
+
+    public void setChildEmotion(Emotion childEmotion) {
+        this.childEmotion = childEmotion;
     }
 }
 
