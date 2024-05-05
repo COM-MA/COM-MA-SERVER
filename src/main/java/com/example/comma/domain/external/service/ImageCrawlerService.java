@@ -25,6 +25,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -190,6 +191,20 @@ public class ImageCrawlerService {
         String imageURL = restTemplate.postForObject(apiUrl, requestEntity, String.class);
 
         return extractImageUrl(imageURL);
+    }
+
+    public String uploadFileFromUrl(String fileUrl, String fileName) throws IOException {
+        URL url = new URL(fileUrl);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try (InputStream inputStream = url.openStream()) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+
+        return uploadFile(outputStream.toByteArray(), fileName);
     }
 
     //json 파싱

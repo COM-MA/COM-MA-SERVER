@@ -42,8 +42,9 @@ public class CardController {
        //수형, 단어 이미지 생성
         List<String> signImageUrls = imageCrawlerService.crawlImageUrls(searchWord);
         byte[] mergeImages = imageCrawlerService.mergeImages(signImageUrls);
-        String signImageUrl = imageCrawlerService.uploadFile(mergeImages, searchWord + ".jpg");
-        String generatedImageUrl = imageCrawlerService.generateImage(searchWord);;
+        String signImageUrl = imageCrawlerService.uploadFile(mergeImages, searchWord + "sign.jpg");
+        String generatedImageUrl = imageCrawlerService.generateImage(searchWord);
+        String ImageUrl = imageCrawlerService.uploadFileFromUrl(generatedImageUrl, searchWord + ".jpg");
 
         //cardId 생성
         cardService.registerCard(searchWord, signImageUrl);
@@ -55,7 +56,7 @@ public class CardController {
         //수형 동작 설명
         String generatesignLanguageDescription= geminiService.generateSignDescription(searchWord);
 
-        WordDatailsResponseDto wordDatailsResponse = new WordDatailsResponseDto(cardId, searchWord, descriptionResponse.get(0).description(),descriptionResponse.get(0).partsOfSeech(), generatedImageUrl, signImageUrl,generatesignLanguageDescription );
+        WordDatailsResponseDto wordDatailsResponse = new WordDatailsResponseDto(cardId, searchWord, descriptionResponse.get(0).description(),descriptionResponse.get(0).partsOfSeech(), ImageUrl, signImageUrl,generatesignLanguageDescription );
 
         return SuccessResponse.ok(wordDatailsResponse);
     }
