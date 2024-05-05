@@ -89,13 +89,6 @@ Our solutions contribute to <b>overcoming the linguistic and cultural gaps</b> t
 
 ![System Architecture](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/58d603fb-5e4c-45f9-a767-4d7a5206217c)
 
-### 🔎 COM-MA Lens
-> AI-based camera recognizes sign language and provides images, text, and voice.
-<br>
-
-### 🏷️ Word Cards
-> Cards for learning sign language, text, and voice for each word.
-<br>
 
 ### 💡 Quizzes
 > Create quizzes directly from saved word cards for educational use.
@@ -107,8 +100,21 @@ Our solutions contribute to <b>overcoming the linguistic and cultural gaps</b> t
 
 ### 🟣 Daily Mission Stickers
 > Motivate users with one-day mission stickers such as word registration, quiz participation, and fairy tale viewing.
+<br>
 
-![image](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/6411a3b1-b0e4-44be-bdac-c58102c602a3)
+### 🔎 COM-MA Lens
+> AI-based camera recognizes sign language and provides images, text, and voice.
+<br>
+
+### 🏷️ Word Cards
+> Cards for learning sign language, text, and voice for each word.
+<br>
+<img width="991" alt="스크린샷 2024-05-06 오전 4 39 54" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/c5835aef-d91b-4421-a1ec-d9d460ef32ae">
+
+<img width="991" alt="스크린샷 2024-05-06 오전 4 35 52" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/4a045bf5-fe19-4eb0-b1fa-31a7e1258b0b">
+
+<img width="991" alt="스크린샷 2024-05-06 오전 4 36 29" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/30962be0-b5cc-43c6-839a-a6517e2f7cd1">
+
 
 <br />
 
