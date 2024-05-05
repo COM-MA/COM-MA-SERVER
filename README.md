@@ -89,26 +89,34 @@ Our solutions contribute to <b>overcoming the linguistic and cultural gaps</b> t
 
 ![System Architecture](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/58d603fb-5e4c-45f9-a767-4d7a5206217c)
 
+### 📸 COM-MA Lens
+> AI-based camera recognizes sign language and provides images, text, and voice.
+<br>
+
+### 🔎 Word search function
+>When a user searches for a desired word, words listed in the 'Korean Sign Language Dictionary' are imported, the meaning of the word, sign language actions, and image information are provided, and a personalized word card can be created.
+<br>
+
+### 🏷️ Word Cards
+> Cards for learning sign language, text, and voice for each word.
+<br>
 
 ### 💡 Quizzes
 > Create quizzes directly from saved word cards for educational use.
-<br>
-
-### 📚 Storybooks
-> Easily watch and educate with subtitles or sign language provided in storybooks.
 <br>
 
 ### 🟣 Daily Mission Stickers
 > Motivate users with one-day mission stickers such as word registration, quiz participation, and fairy tale viewing.
 <br>
 
-### 🔎 COM-MA Lens
-> AI-based camera recognizes sign language and provides images, text, and voice.
+### 😎 Today’s mood sharing function
+> It provides a function that allows parents and children to express each other's emotions with emoticons. This can strengthen the emotional connection between parents and children.
 <br>
 
-### 🏷️ Word Cards
-> Cards for learning sign language, text, and voice for each word.
+### 📚 Storybooks
+> Easily watch and educate with subtitles or sign language provided in storybooks.
 <br>
+
 <img width="991" alt="스크린샷 2024-05-06 오전 4 39 54" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/c5835aef-d91b-4421-a1ec-d9d460ef32ae">
 
 <img width="991" alt="스크린샷 2024-05-06 오전 4 35 52" src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/4a045bf5-fe19-4eb0-b1fa-31a7e1258b0b">
