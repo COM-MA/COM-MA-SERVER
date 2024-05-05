@@ -1,7 +1,9 @@
 <div align="center">
 
   <h2> <i>' COM-MA '</i> <br>AI Camera-Based Sign Language Education Platform for CODA<br></h2>
-  Youtube Link [https://youtu.be/9KRVqarybjo]
+  2nd submission [https://www.youtube.com/watch?v=WfFZMll-lgc]
+  <br>
+  1st submission [https://youtu.be/9KRVqarybjo]
   <img src="https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/5cdd7168-3cee-4385-8944-c41d85ae18e4" alt="Slide 16_9 - 4">
 
 </div>
@@ -179,7 +181,7 @@ java -jar comma-0.0.1-SNAPSHOT.jar
 <hr>
 
 ### ⚙️ Architecture Structure
-![Frame 7](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/c1a1e8aa-b4e4-4a60-a1a0-66d36d7b075a)
+![KakaoTalk_Photo_2024-05-06-03-47-15](https://github.com/COM-MA/COM-MA-SERVER/assets/102026726/23fbf681-9aa4-430a-9659-1de21a10d44e)
 <br />
 <hr>
 
