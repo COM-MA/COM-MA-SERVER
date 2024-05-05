@@ -36,6 +36,9 @@ public class CardController {
     @GetMapping("/search-details")
     public ResponseEntity<SuccessResponse<?>> generateResponse(@RequestParam(name = "searchWord") String searchWord) throws IOException {
 
+        if(searchWord.equals("다리")){
+            searchWord = "(시설물)다리";
+        }
        //수형, 단어 이미지 생성
         List<String> signImageUrls = imageCrawlerService.crawlImageUrls(searchWord);
         byte[] mergeImages = imageCrawlerService.mergeImages(signImageUrls);
