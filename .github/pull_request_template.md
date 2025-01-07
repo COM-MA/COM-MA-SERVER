@@ -1,7 +1,8 @@
-## Related Issue ✨️
-
-- close : #[Issue number]
-
-## Summary ✨️
-
-- 내가 뭘했는지
+## ✨ 설명  
+  
+  
+## 🔍 주요 변경 사항  
+- [ ]   
+- [ ]   
+  
+## 📌 참고 사항
